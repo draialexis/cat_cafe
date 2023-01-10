@@ -1,11 +1,17 @@
-﻿using System;
+﻿using cat_cafe.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 namespace cat_cafe.Repositories
 {
-	public class BarContext
+	public class BarContext : DbContext
 	{
-		public BarContext()
-		{
-		}
-	}
+        public BarContext(DbContextOptions<BarContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Bar> Bars { get; set; } = null!;
+
+    }
 }
 
