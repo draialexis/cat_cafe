@@ -30,7 +30,8 @@ namespace cat_cafe.Controllers
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
         {
             var cats = await _context.Cats.ToListAsync();
-            return _mapper.Map<List<CatDto>>(cats);
+         
+            return  Ok(_mapper.Map<List<CatDto>>(cats));
 
         }
 
@@ -45,7 +46,7 @@ namespace cat_cafe.Controllers
                 return NotFound();
             }
 
-            return _mapper.Map<CatDto>(cat);
+            return Ok(_mapper.Map<CatDto>(cat));
         }
 
         // PUT: api/Cats/5
