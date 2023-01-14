@@ -19,7 +19,7 @@ git reset --hard origin/master
 
 Give your new branch a name referring to an issue (or maybe a group of similar issues)
 ```
-git checkout -b new-feature
+git checkout -b branch-name-that-describes-the-new-feature
 ```
 
 Regularly, you might want to get all the new code from your master (yeah, we forgot to rename it "main", sorry) branch, to work with an up-to-date codebase:
