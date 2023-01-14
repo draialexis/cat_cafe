@@ -1,3 +1,5 @@
+[![Build Status](https://codefirst.iut.uca.fr/api/badges/alexis.drai/cat_cafe/status.svg)](https://codefirst.iut.uca.fr/alexis.drai/cat_cafe)
+
 # cat_cafe
 
 ## To contribute (workflow)
@@ -6,7 +8,7 @@ We are using the feature branch workflow ([details here](https://www.atlassian.c
 
 ### 1 - Sync with the remote 
 
-Make sure you're working with the latest version of the project
+Make sure you're working with the latest version of the project 
 ```
 git checkout master
 git fetch origin 
