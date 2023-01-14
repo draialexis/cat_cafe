@@ -7,11 +7,11 @@ namespace cat_cafe.Repositories
 	{
         public BarContext(DbContextOptions<BarContext> options)
             : base(options)
-        {
-        }
+		{
+		}
 
         public DbSet<Bar> Bars { get; set; } = null!;
 
-    }
+	}
 }
 

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using cat_cafe.Entities;
 using cat_cafe.Repositories;
+using AutoMapper;
+using cat_cafe.Dto;
 
 namespace cat_cafe.Controllers
 {
@@ -15,22 +17,26 @@ namespace cat_cafe.Controllers
     public class CatsController : ControllerBase
     {
         private readonly CatContext _context;
+        private readonly IMapper _mapper;
 
-        public CatsController(CatContext context)
+        public CatsController(CatContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
         // GET: api/Cats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cat>>> GetCats()
+        public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
         {
-            return await _context.Cats.ToListAsync();
+            var cats = await _context.Cats.ToListAsync();
+            return _mapper.Map<List<CatDto>>(cats);
+
         }
 
         // GET: api/Cats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cat>> GetCat(long id)
+        public async Task<ActionResult<CatDto>> GetCat(long id)
         {
             var cat = await _context.Cats.FindAsync(id);
 
@@ -39,19 +45,20 @@ namespace cat_cafe.Controllers
                 return NotFound();
             }
 
-            return cat;
+            return _mapper.Map<CatDto>(cat);
         }
 
         // PUT: api/Cats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCat(long id, Cat cat)
+        public async Task<IActionResult> PutCat(long id, CatDto catDto)
         {
-            if (id != cat.Id)
+            if (id != catDto.Id)
             {
                 return BadRequest();
             }
 
+            Cat cat = _mapper.Map<Cat>(catDto);
             _context.Entry(cat).State = EntityState.Modified;
 
             try
@@ -76,12 +83,13 @@ namespace cat_cafe.Controllers
         // POST: api/Cats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cat>> PostCat(Cat cat)
+        public async Task<ActionResult<CatDto>> PostCat(CatDto catDto)
         {
+            Cat cat = _mapper.Map<Cat>(catDto);
             _context.Cats.Add(cat);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCat", new { id = cat.Id }, cat);
+            return CreatedAtAction("GetCat", new { id = catDto.Id }, _mapper.Map<CatDto>(cat));
         }
 
         // DELETE: api/Cats/5
