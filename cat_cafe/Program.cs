@@ -10,6 +10,8 @@ builder.Services.AddDbContext<CatContext>(opt =>
 opt.UseInMemoryDatabase("CatCafe"));
 builder.Services.AddDbContext<BarContext>(opt =>
 opt.UseInMemoryDatabase("CatCafe"));
+builder.Services.AddDbContext<CustomerContext>(opt =>
+opt.UseInMemoryDatabase("CatCafe"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
