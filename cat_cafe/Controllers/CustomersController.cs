@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using cat_cafe.Entities;
 using cat_cafe.Repositories;
+using cat_cafe.Dto;
+using AutoMapper;
 
 namespace cat_cafe.Controllers
 {
@@ -15,22 +17,25 @@ namespace cat_cafe.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly CustomerContext _context;
+        private readonly IMapper _mapper;
 
-        public CustomersController(CustomerContext context)
+        public CustomersController(CustomerContext context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
         {
-            return await _context.Customers.ToListAsync();
+            var customers = await _context.Customers.ToListAsync();
+            return Ok(_mapper.Map<List<CustomerDto>>(customers));
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(long id)
+        public async Task<ActionResult<CustomerDto>> GetCustomer(long id)
         {
             var customer = await _context.Customers.FindAsync(id);
 
@@ -39,18 +44,20 @@ namespace cat_cafe.Controllers
                 return NotFound();
             }
 
-            return customer;
+            return _mapper.Map<CustomerDto>(customer);
         }
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(long id, Customer customer)
+        public async Task<IActionResult> PutCustomer(long id, CustomerDto customerDto)
         {
-            if (id != customer.Id)
+            if (id != customerDto.Id)
             {
                 return BadRequest();
             }
+
+            Customer customer = _mapper.Map<Customer>(customerDto);
 
             _context.Entry(customer).State = EntityState.Modified;
 
@@ -76,12 +83,13 @@ namespace cat_cafe.Controllers
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Customer>> PostCustomer(CustomerDto customerDto)
         {
+            Customer customer = _mapper.Map<Customer>(customerDto);
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, _mapper.Map<Customer>( customer));
         }
 
         // DELETE: api/Customers/5
