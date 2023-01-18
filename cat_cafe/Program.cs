@@ -1,7 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using cat_cafe.Repositories;
+using Serilog;
+using Serilog.Sinks.File;
 
 var builder = WebApplication.CreateBuilder(args);
+
+/*
+ILoggerFactory loggerFactory=new LoggerFactory();
+loggerFactory.AddFile($@"{Directory.GetCurrentDirectory}\Logs\logs.txt");
+*/
+
+Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.File("log.txt").CreateLogger();
 
 // Add services to the container.
 
@@ -21,6 +30,12 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+/*var loggerFactory = app.Services.GetService<ILoggerFactory>();
+loggerFactory.AddFile(builder.Configuration["Logging:LogFilePath"].ToString());
+
+app.Services.GetService<ILoggerFactory>().AddFile(builder.Configuration["Logging:LogFilePath"].ToString());*/
+
+app.UseHttpLogging();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -34,4 +49,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+Log.Information("program start");
 app.Run();

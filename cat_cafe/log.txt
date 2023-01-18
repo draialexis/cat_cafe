@@ -1,0 +1,58 @@
+2023-01-18 08:31:45.368 +01:00 [INF] hello i m here
+2023-01-18 09:01:20.438 +01:00 [INF] GET
+2023-01-18 09:04:06.569 +01:00 [INF] GET => cat_cafe.Repositories.CustomerContext
+2023-01-18 09:06:53.085 +01:00 [INF] GET => get All customers
+2023-01-18 09:06:53.206 +01:00 [INF] GET => System.Collections.Generic.List`1[cat_cafe.Entities.Customer]
+2023-01-18 09:06:54.335 +01:00 [INF] GET => get All customers
+2023-01-18 09:06:54.345 +01:00 [INF] GET => System.Collections.Generic.List`1[cat_cafe.Entities.Customer]
+2023-01-18 09:09:10.113 +01:00 [INF] GET => get All customers
+2023-01-18 09:09:10.234 +01:00 [INF] GET => Microsoft.AspNetCore.Mvc.OkResult
+2023-01-18 09:09:11.257 +01:00 [INF] GET => get All customers
+2023-01-18 09:09:11.267 +01:00 [INF] GET => Microsoft.AspNetCore.Mvc.OkResult
+2023-01-18 09:09:21.627 +01:00 [INF] GET => get All customers
+2023-01-18 09:09:21.659 +01:00 [INF] GET => Microsoft.AspNetCore.Mvc.OkResult
+2023-01-18 09:09:22.556 +01:00 [INF] GET => get All customers
+2023-01-18 09:09:22.556 +01:00 [INF] GET => Microsoft.AspNetCore.Mvc.OkResult
+2023-01-18 09:13:26.188 +01:00 [INF] GET => get All customers
+2023-01-18 09:13:26.308 +01:00 [INF] GET => 200
+2023-01-18 09:13:27.367 +01:00 [INF] GET => get All customers
+2023-01-18 09:13:27.377 +01:00 [INF] GET => 200
+2023-01-18 09:17:33.374 +01:00 [INF] GET => get by ID
+2023-01-18 09:17:33.521 +01:00 [INF] GET => 200
+2023-01-18 09:27:39.325 +01:00 [INF] GET => get by ID
+2023-01-18 09:27:39.471 +01:00 [INF] GET => Microsoft.AspNetCore.Mvc.NotFoundResult
+2023-01-18 09:27:40.257 +01:00 [INF] GET => get by ID
+2023-01-18 09:27:40.285 +01:00 [INF] GET => Microsoft.AspNetCore.Mvc.NotFoundResult
+2023-01-18 09:28:36.156 +01:00 [INF] GET => get by ID
+2023-01-18 09:28:36.299 +01:00 [INF] GET => 404
+2023-01-18 09:32:05.645 +01:00 [INF] GET => get by ID 98
+2023-01-18 09:32:05.788 +01:00 [INF] GET => 404
+2023-01-18 09:36:20.083 +01:00 [INF] GET => get All customers
+2023-01-18 09:36:20.203 +01:00 [INF] GET => 200System.Collections.Generic.List`1[cat_cafe.Entities.Customer]0
+2023-01-18 09:36:21.191 +01:00 [INF] GET => get All customers
+2023-01-18 09:36:21.200 +01:00 [INF] GET => 200System.Collections.Generic.List`1[cat_cafe.Entities.Customer]0
+2023-01-18 09:37:41.477 +01:00 [INF] GET => get All customers
+2023-01-18 09:37:41.599 +01:00 [INF] GET => 200System.Collections.Generic.List`1[cat_cafe.Entities.Customer]0
+2023-01-18 09:48:40.093 +01:00 [INF] GET => get All customers
+2023-01-18 09:48:40.216 +01:00 [INF] GET => 200List`10
+2023-01-18 09:49:47.745 +01:00 [INF] GET => get All customers
+2023-01-18 09:50:13.854 +01:00 [INF] GET => get All customers
+2023-01-18 10:12:48.174 +01:00 [INF] GET => get All customers
+2023-01-18 10:12:48.299 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] 0
+2023-01-18 13:40:12.116 +01:00 [INF] GET => get All customers
+2023-01-18 13:40:12.243 +01:00 [INF] GET => 200 length[System.Collections.Generic.List`1[cat_cafe.Entities.Customer]] 0
+2023-01-18 13:49:39.432 +01:00 [INF] GET => get All customers
+2023-01-18 13:49:39.556 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[0]
+2023-01-18 13:49:40.662 +01:00 [INF] GET => get All customers
+2023-01-18 13:49:40.671 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[0]
+2023-01-18 13:50:02.846 +01:00 [INF] GET => get All customers
+2023-01-18 13:50:02.858 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[3]
+2023-01-18 13:50:16.312 +01:00 [INF] GET => get by ID 1
+2023-01-18 13:50:16.372 +01:00 [INF] GET => 200 cat_cafe.Entities.Customer cat_cafe.Entities.Customer
+2023-01-18 14:02:49.706 +01:00 [INF] GET => get by ID 1
+2023-01-18 14:02:49.853 +01:00 [INF] GET => 200 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 14:02:50.942 +01:00 [INF] GET => get by ID 1
+2023-01-18 14:02:50.955 +01:00 [INF] GET => 200 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 14:40:46.920 +01:00 [INF] program start
+2023-01-18 14:41:47.647 +01:00 [INF] program startMicrosoft.AspNetCore.Server.Kestrel.Core.Internal.ServerAddressesCollection+PublicServerAddressesCollection
+2023-01-18 14:46:02.825 +01:00 [INF] program start
