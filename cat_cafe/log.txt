@@ -56,3 +56,34 @@
 2023-01-18 14:40:46.920 +01:00 [INF] program start
 2023-01-18 14:41:47.647 +01:00 [INF] program startMicrosoft.AspNetCore.Server.Kestrel.Core.Internal.ServerAddressesCollection+PublicServerAddressesCollection
 2023-01-18 14:46:02.825 +01:00 [INF] program start
+2023-01-18 15:11:52.392 +01:00 [INF] program start
+2023-01-18 15:12:52.666 +01:00 [INF] POST => post customer
+2023-01-18 15:12:52.811 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 15:12:57.721 +01:00 [INF] POST => post customer
+2023-01-18 15:12:57.774 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":2,"FullName":"string","Age":0}
+2023-01-18 15:13:05.862 +01:00 [INF] POST => post customer
+2023-01-18 15:13:05.878 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":3,"FullName":null,"Age":0}
+2023-01-18 15:13:20.942 +01:00 [INF] GET => get All customers
+2023-01-18 15:13:21.019 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[3]
+2023-01-18 15:14:29.887 +01:00 [INF] program start
+2023-01-18 15:14:45.101 +01:00 [INF] POST => post customer
+2023-01-18 16:06:58.681 +01:00 [INF] program start
+2023-01-18 16:07:24.045 +01:00 [INF] POST => post customer
+2023-01-18 16:07:24.221 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 16:09:15.539 +01:00 [INF] POST => post customer
+2023-01-18 16:09:15.575 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":2,"FullName":"string","Age":0}
+2023-01-18 16:09:16.137 +01:00 [INF] POST => post customer
+2023-01-18 16:09:16.155 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":3,"FullName":"string","Age":0}
+2023-01-18 16:09:16.606 +01:00 [INF] POST => post customer
+2023-01-18 16:09:16.608 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":4,"FullName":"string","Age":0}
+2023-01-18 16:09:17.073 +01:00 [INF] POST => post customer
+2023-01-18 16:09:17.075 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":5,"FullName":"string","Age":0}
+2023-01-18 16:09:17.497 +01:00 [INF] POST => post customer
+2023-01-18 16:09:17.499 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":6,"FullName":"string","Age":0}
+2023-01-18 16:10:45.955 +01:00 [INF] program start
+2023-01-18 16:11:14.814 +01:00 [INF] POST => post customer
+2023-01-18 16:11:14.980 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 16:20:42.582 +01:00 [INF] program start
+2023-01-18 16:21:45.996 +01:00 [INF] program start
+2023-01-18 16:21:58.069 +01:00 [INF] POST => post customer
+2023-01-18 16:21:58.244 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
