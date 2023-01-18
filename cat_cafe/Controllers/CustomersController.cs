@@ -61,7 +61,7 @@ namespace cat_cafe.Controllers
                 + this.Response.StatusCode.ToString() + " "
                 + customer.GetType().ToString() + " "
                 + JsonConvert.SerializeObject(customer).ToString());
-            return _mapper.Map<CustomerDto>(customer);
+            return Ok(_mapper.Map<CustomerDto>(customer));
         }
 
         // PUT: api/Customers/5
