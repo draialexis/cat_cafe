@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,11 +15,4 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\cat_cafe\cat_cafe.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
-  </ItemGroup>
 </Project>

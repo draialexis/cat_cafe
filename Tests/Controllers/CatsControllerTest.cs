@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using cat_cafe.Controllers;
-using cat_cafe.Dto;
-using cat_cafe.Mappers;
-using cat_cafe.Repositories;
+﻿using cat_cafe.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
 using System;
