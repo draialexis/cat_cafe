@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cat_cafe.Repositories
 {
-    public class CatContext : DbContext
+    public class CatCafeContext : DbContext
     {
-        public CatContext(DbContextOptions<CatContext> options)
+        public CatCafeContext(DbContextOptions<CatCafeContext> options)
             : base(options)
         {
         }

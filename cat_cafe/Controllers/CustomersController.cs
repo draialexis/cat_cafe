@@ -18,11 +18,11 @@ namespace cat_cafe.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerContext _context;
+        private readonly CatCafeContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<CustomersController> _logger;
 
-        public CustomersController(CustomerContext context,IMapper mapper,ILogger<CustomersController> logger)
+        public CustomersController(CatCafeContext context,IMapper mapper,ILogger<CustomersController> logger)
         {
             _context = context;
             _mapper = mapper;

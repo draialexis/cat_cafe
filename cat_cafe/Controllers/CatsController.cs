@@ -19,11 +19,11 @@ namespace cat_cafe.Controllers
     [ApiController]
     public class CatsController : ControllerBase
     {
-        private readonly CatContext _context;
+        private readonly CatCafeContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<CatsController> _logger;
 
-        public CatsController(CatContext context, IMapper mapper, ILogger<CatsController> logger)
+        public CatsController(CatCafeContext context, IMapper mapper, ILogger<CatsController> logger)
         {
             _mapper = mapper;
             _context = context;

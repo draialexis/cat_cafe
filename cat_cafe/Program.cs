@@ -10,7 +10,7 @@ Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.File("
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<CatContext>(opt => opt.UseInMemoryDatabase("CatCafe"));
+builder.Services.AddDbContext<CatCafeContext>(opt => opt.UseInMemoryDatabase("CatCafe"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));

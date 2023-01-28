@@ -31,20 +31,20 @@ namespace cat_cafe.Controllers.Tests
 
         private readonly MapperConfiguration mapperConf = new(mapper => mapper.AddProfile(typeof(CatMapper)));
 
-        private readonly DbContextOptions<CatContext> options = new DbContextOptionsBuilder<CatContext>()
+        private readonly DbContextOptions<CatCafeContext> options = new DbContextOptionsBuilder<CatCafeContext>()
                 .UseInMemoryDatabase(databaseName: "CatCafeTests")
                 .Options;
 
         private readonly IMapper mapper;
 
-        private readonly CatContext context;
+        private readonly CatCafeContext context;
 
         private readonly CatsController controller;
 
         public CatsControllerTest()
         {
             mapper = mapperConf.CreateMapper();
-            context = new CatContext(options);
+            context = new CatCafeContext(options);
             controller = new CatsController(context, mapper, logger);
         }
 
