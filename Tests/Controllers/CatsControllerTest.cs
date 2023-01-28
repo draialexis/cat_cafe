@@ -11,11 +11,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
+
 
 namespace cat_cafe.Controllers.Tests
 {
@@ -28,11 +31,11 @@ namespace cat_cafe.Controllers.Tests
 
         private readonly MapperConfiguration mapperConf = new(mapper => mapper.AddProfile(typeof(CatMapper)));
 
-        private readonly IMapper mapper;
-
         private readonly DbContextOptions<CatContext> options = new DbContextOptionsBuilder<CatContext>()
                 .UseInMemoryDatabase(databaseName: "CatCafeTests")
                 .Options;
+
+        private readonly IMapper mapper;
 
         private readonly CatContext context;
 
@@ -47,32 +50,54 @@ namespace cat_cafe.Controllers.Tests
 
 
         [TestInitialize]
-        public void StartUp()
+        public void BeforeEach()
         {
             context.Database.EnsureCreated();
             context.Cats.AddRange(
                 new Cat
-            {
-                Id = 1,
-                Name = "Alice",
-                Age = 5
-            },
+                {
+                    Id = 1,
+                    Name = "Alice",
+                    Age = 5
+                },
                 new Cat
-            {
-                Id = 2,
-                Name = "Bob",
-                Age = 3
-            });
+                {
+                    Id = 2,
+                    Name = "Bob",
+                    Age = 3
+                });
             context.SaveChanges();
+        }
 
-            // TODO tear down and drop all before each test method
+        [TestCleanup]
+        public void AfterEach()
+        {
+            context.Database.EnsureDeleted();
         }
 
         [TestMethod()]
         public async Task GetCatsTest()
         {
-            ActionResult<IEnumerable<CatDto>> actual = await controller.GetCats();
-            Assert.Equals(200, actual.Result);
+            var actual = await controller.GetCats();
+
+            actual.Result.Should().BeOfType<OkObjectResult>();
+
+            var actualResult = actual.Result as OkObjectResult;
+
+            actualResult.Should().NotBeNull();
+            actualResult!.Value.Should().BeEquivalentTo(new List<CatDto>()
+            {
+                new CatDto
+                {
+                    Id = 1,
+                    Name = "Alice",
+                },
+                new CatDto
+                {
+                    Id = 2,
+                    Name = "Bob",
+                }
+            }.AsEnumerable());
         }
 
         [TestMethod()]
@@ -98,12 +123,5 @@ namespace cat_cafe.Controllers.Tests
         {
             Assert.Fail();
         }
-
-        [TestMethod()]
-        public void CatExistsTest()
-        {
-            Assert.Fail();
-        }
-
     }
 }

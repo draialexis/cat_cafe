@@ -11,6 +11,7 @@ using AutoMapper;
 using cat_cafe.Dto;
 using Serilog;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace cat_cafe.Controllers
 {
@@ -33,35 +34,24 @@ namespace cat_cafe.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
         {
-            Log.Information(this.Request.Method + " => get All customers");
             var cats = await _context.Cats.ToListAsync();
 
-            Log.Information(this.Request.Method + " => "
-                + this.Response.StatusCode.ToString() + " "
-                + cats.GetType().ToString() + " length["
-                + cats.Count + "]");
             return Ok(_mapper.Map<List<CatDto>>(cats));
-
         }
 
         // GET: api/Cats/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CatDto>> GetCat(long id)
         {
-            Log.Information(this.Request.Method + " => get by ID {@id}", id);
             var cat = await _context.Cats.FindAsync(id);
 
             if (cat == null)
             {
-                Log.Information(this.Request.Method + " => " + NotFound().StatusCode.ToString());
                 return NotFound();
             }
-            Log.Information(this.Request.Method + " => "
-                + this.Response.StatusCode.ToString() + " "
-                + cat.GetType().ToString() + " "
-                + JsonConvert.SerializeObject(cat).ToString());
+
             return Ok(_mapper.Map<CatDto>(cat));
-        } //TODO finish logging
+        }
 
         // PUT: api/Cats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
