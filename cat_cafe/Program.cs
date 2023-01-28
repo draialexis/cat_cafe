@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<CatContext>(opt =>
 opt.UseInMemoryDatabase("CatCafe"));
 builder.Services.AddDbContext<BarContext>(opt =>
-opt.UseInMemoryDatabase("CatCafe"));
+opt.UseSqlite("CatCafe"));
 builder.Services.AddDbContext<CustomerContext>(opt =>
 opt.UseInMemoryDatabase("CatCafe"));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

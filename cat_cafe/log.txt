@@ -87,3 +87,21 @@
 2023-01-18 16:21:45.996 +01:00 [INF] program start
 2023-01-18 16:21:58.069 +01:00 [INF] POST => post customer
 2023-01-18 16:21:58.244 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 16:24:20.049 +01:00 [INF] PUT => put by ID 1
+2023-01-18 16:24:20.052 +01:00 [INF] PUT => 400 IDs not matching
+2023-01-18 16:24:29.668 +01:00 [INF] PUT => put by ID 1
+2023-01-18 16:24:29.705 +01:00 [INF] PUT => 200 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-18 16:24:41.242 +01:00 [INF] GET => get All customers
+2023-01-18 16:24:41.331 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[1]
+2023-01-18 16:24:50.036 +01:00 [INF] PUT => put by ID 1
+2023-01-18 16:24:50.038 +01:00 [INF] PUT => 200 cat_cafe.Entities.Customer {"Id":1,"FullName":"stringdfdfdf","Age":0}
+2023-01-18 16:25:01.929 +01:00 [INF] GET => get All customers
+2023-01-18 16:25:01.930 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[1]
+2023-01-18 16:26:22.655 +01:00 [INF] program start
+2023-01-21 08:07:49.648 +01:00 [INF] program start
+2023-01-21 08:22:24.735 +01:00 [INF] program start
+2023-01-21 08:45:51.715 +01:00 [INF] program start
+2023-01-21 08:46:50.522 +01:00 [INF] program start
+2023-01-21 08:51:20.382 +01:00 [INF] program start
+2023-01-21 09:52:51.283 +01:00 [INF] program start
+2023-01-21 09:53:00.966 +01:00 [INF] POST => post customer
