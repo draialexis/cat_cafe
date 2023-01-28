@@ -9,6 +9,8 @@ using cat_cafe.Entities;
 using cat_cafe.Repositories;
 using AutoMapper;
 using cat_cafe.Dto;
+using System.Collections;
+using System.Xml.Linq;
 
 namespace cat_cafe.Controllers
 {
@@ -18,18 +20,28 @@ namespace cat_cafe.Controllers
     {
         private readonly BarContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger <BarsController> _logger;
 
-        public BarsController(BarContext context,IMapper mapper)
+        public BarsController(BarContext context,IMapper mapper, ILogger<BarsController> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/Bars
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BarDto>>> GetBars()
         {
-            var bars = await _context.Bars.ToListAsync();
+            var bars = _context.Bars
+               .Include(a => a.cats)
+               .Select(a => new Bar
+               {
+                   Id = a.Id,
+                   Name = a.Name,
+                  cats = a.cats.Select(p => new Cat { Name = p.Name, Age = p.Age, Id= p.Id}).ToList()
+               })
+                .ToList();
             return _mapper.Map<List<BarDto>>(bars);
         }
 
@@ -37,14 +49,21 @@ namespace cat_cafe.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BarDto>> GetBar(long id)
         {
-            var bar = await _context.Bars.FindAsync(id);
+            var bar = _context.Bars.Include(p => p.cats)
+                .Select(a => new Bar
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    cats = a.cats.Select(p => new Cat { Name = p.Name, Age = p.Age, Id = p.Id }).ToList()
+
+                }).FirstOrDefaultAsync(p => p.Id == id);
 
             if (bar == null)
             {
                 return NotFound();
             }
 
-            return _mapper.Map<BarDto>(bar);
+            return _mapper.Map<BarDto>(bar.Result);
         }
 
         // PUT: api/Bars/5
@@ -83,7 +102,10 @@ namespace cat_cafe.Controllers
         [HttpPost]
         public async Task<ActionResult<BarDto>> PostBar(BarDto barDto)
         {
-            Bar bar = _mapper.Map<Bar>(barDto);
+           // Bar bar = _mapper.Map<Bar>(barDto);
+            var bar = _mapper.Map<Bar>(barDto);
+
+
             _context.Bars.Add(bar);
             await _context.SaveChangesAsync();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using cat_cafe.Dto;
 using cat_cafe.Entities;
 
 namespace cat_cafe.Mappers
@@ -8,7 +9,9 @@ namespace cat_cafe.Mappers
 	{
 		public BarMapper()
 		{
-			CreateMap<Bar, BarMapper>().ReverseMap();
+             
+           // var mapper = config.CreateMapper();
+            CreateMap<Bar, BarDto>().ReverseMap();
 		}
 	}
 }
