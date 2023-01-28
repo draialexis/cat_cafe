@@ -1,0 +1,28 @@
+2023-01-21 09:37:45.148 +01:00 [INF] program start
+2023-01-28 08:16:52.320 +01:00 [INF] program start
+2023-01-28 08:30:32.772 +01:00 [INF] program start
+2023-01-28 08:31:51.147 +01:00 [INF] program start
+2023-01-28 08:35:42.533 +01:00 [INF] program start
+2023-01-28 08:37:29.403 +01:00 [INF] program start
+2023-01-28 08:38:02.513 +01:00 [INF] program start
+2023-01-28 08:38:24.151 +01:00 [INF] program start
+2023-01-28 08:39:11.319 +01:00 [INF] program start
+2023-01-28 08:54:25.005 +01:00 [INF] program start
+2023-01-28 08:55:19.776 +01:00 [INF] program start
+2023-01-28 08:57:05.150 +01:00 [INF] POST => post customer
+2023-01-28 08:57:05.326 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-01-28 08:57:13.908 +01:00 [INF] GET => get All customers
+2023-01-28 08:57:13.997 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[1]
+2023-01-28 08:58:25.856 +01:00 [INF] program start
+2023-01-28 09:05:05.071 +01:00 [INF] program start
+2023-01-28 09:13:54.542 +01:00 [INF] program start
+2023-01-28 09:17:54.058 +01:00 [INF] program start
+2023-01-28 09:24:15.797 +01:00 [INF] program start
+2023-01-28 09:26:42.943 +01:00 [INF] program start
+2023-01-28 09:31:25.523 +01:00 [INF] program start
+2023-01-28 09:38:42.245 +01:00 [INF] program start
+2023-01-28 09:40:40.846 +01:00 [INF] program start
+2023-01-28 09:49:33.194 +01:00 [INF] program start
+2023-01-28 09:52:36.098 +01:00 [INF] program start
+2023-01-28 09:56:02.340 +01:00 [INF] program start
+2023-01-28 09:57:05.155 +01:00 [INF] program start
