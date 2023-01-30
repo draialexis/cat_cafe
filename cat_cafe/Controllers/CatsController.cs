@@ -9,6 +9,9 @@ using cat_cafe.Entities;
 using cat_cafe.Repositories;
 using AutoMapper;
 using cat_cafe.Dto;
+using Serilog;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace cat_cafe.Controllers
 {
@@ -16,13 +19,15 @@ namespace cat_cafe.Controllers
     [ApiController]
     public class CatsController : ControllerBase
     {
-        private readonly CatContext _context;
+        private readonly CatCafeContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<CatsController> _logger;
 
-        public CatsController(CatContext context, IMapper mapper)
+        public CatsController(CatCafeContext context, IMapper mapper, ILogger<CatsController> logger)
         {
             _mapper = mapper;
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Cats
@@ -30,8 +35,8 @@ namespace cat_cafe.Controllers
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
         {
             var cats = await _context.Cats.ToListAsync();
-            return _mapper.Map<List<CatDto>>(cats);
 
+            return Ok(_mapper.Map<List<CatDto>>(cats));
         }
 
         // GET: api/Cats/5
@@ -45,7 +50,7 @@ namespace cat_cafe.Controllers
                 return NotFound();
             }
 
-            return _mapper.Map<CatDto>(cat);
+            return Ok(_mapper.Map<CatDto>(cat));
         }
 
         // PUT: api/Cats/5
