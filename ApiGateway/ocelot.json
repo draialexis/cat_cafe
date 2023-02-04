@@ -16,7 +16,7 @@
       ],
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "1 second",
+        "Period": "1s",
         "PeriodTimespan": 1,
         "Limit": 1
       }
@@ -59,7 +59,7 @@
       ],
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "1 second",
+        "Period": "1s",
         "PeriodTimespan": 1,
         "Limit": 1
       }
@@ -100,11 +100,8 @@
           "Port": 7229
         }
       ],
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "1 second",
-        "PeriodTimespan": 1,
-        "Limit": 1
+      "FileCacheOptions": {
+        "TtlSeconds": 10
       }
     },
     {
