@@ -137,3 +137,15 @@
 2023-02-04 09:53:40.756 +01:00 [INF] program start
 2023-02-04 09:53:50.214 +01:00 [INF] GET => get All customers
 2023-02-04 09:53:50.290 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[3]
+2023-02-04 11:47:11.896 +01:00 [INF] program start
+2023-02-04 11:47:24.495 +01:00 [INF] GET => get All customers
+2023-02-04 11:47:24.570 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[3]
+2023-02-04 11:47:45.623 +01:00 [INF] POST => post customer
+2023-02-04 11:47:45.710 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":4,"FullName":"string","Age":0}
+2023-02-04 11:47:47.622 +01:00 [INF] POST => post customer
+2023-02-04 11:47:47.627 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":5,"FullName":"string","Age":0}
+2023-02-04 11:47:57.417 +01:00 [INF] GET => get All customers
+2023-02-04 11:47:57.421 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[5]
+2023-02-04 11:48:05.671 +01:00 [INF] program start
+2023-02-04 11:48:15.442 +01:00 [INF] GET => get All customers
+2023-02-04 11:48:15.516 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[5]

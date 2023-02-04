@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore,visualstudio,visualstudiocode
 
 log.txt
+cat_cafe/log.txt
 
 ### DotnetCore ###
 # .NET Core build folders
@@ -427,3 +428,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,visualstudio,visualstudiocode
+/Tests/Tests - Backup.csproj
