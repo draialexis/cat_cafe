@@ -21,16 +21,16 @@ We used an ASP .NET Web API, with a Swagger configuration to visualize the inter
 An [Ocelot](https://ocelot.readthedocs.io/en/latest/) API Gateway manages the whole system.
 
 It can be started using Visual Studio if you first right-click the cat-cafe.sln Solution, and go to Properties.
-![step1](https://drive.google.com/file/d/1Ptz8IK9Zrl007otaqpHKks_pNftH2aq_/view?usp=share_link)
+![step1](./docs/step1.png)
 
 Then set all relevant projects' "Action" to "Start", and they will all be launched simultaneously.
-![step2](https://drive.google.com/file/d/1L-Uqn5f_IvYqIUXgm3kLeLo8oa3UujJR/view?usp=share_link)
+![step2](./docs/step2.png)
 
 Now you can click "Start" to launch the "Multiple Startup Project".
-![step3](https://drive.google.com/file/d/19oJPbiOsLH-hKHheRM1vocBqsBThUacU/view?usp=share_link)
+![step3](./docs/step3.png)
 
 And observe the API gateway in action.
-![profit](https://drive.google.com/file/d/1CffT0pXBwPH2Hc3GeMzbzhro9H_x08Ai/view?usp=sharing)
+![profit](./docs/profit.png)
 
 #### Ports 
 | What | Where |
