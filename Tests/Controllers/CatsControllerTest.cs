@@ -35,6 +35,25 @@ namespace cat_cafe.Controllers.Tests
                 .UseInMemoryDatabase(databaseName: "CatCafeTests")
                 .Options;
 
+        private readonly Cat alice = new()
+        {
+            Id = 1,
+            Name = "Alice",
+            Age = 5
+        };
+
+        private readonly Cat bob = new()
+        {
+            Id = 2,
+            Name = "Bob",
+            Age = 7
+        };
+
+
+        private readonly CatDto aliceDto;
+
+        private readonly CatDto bobDto;
+
         private readonly IMapper mapper;
 
         private readonly CatCafeContext context;
@@ -46,6 +65,8 @@ namespace cat_cafe.Controllers.Tests
             mapper = mapperConf.CreateMapper();
             context = new CatCafeContext(options);
             controller = new CatsController(context, mapper, logger);
+            aliceDto = mapper.Map<CatDto>(alice);
+            bobDto = mapper.Map<CatDto>(bob);
         }
 
 
@@ -53,19 +74,7 @@ namespace cat_cafe.Controllers.Tests
         public void BeforeEach()
         {
             context.Database.EnsureCreated();
-            context.Cats.AddRange(
-                new Cat
-                {
-                    Id = 1,
-                    Name = "Alice",
-                    Age = 5
-                },
-                new Cat
-                {
-                    Id = 2,
-                    Name = "Bob",
-                    Age = 3
-                });
+            context.Cats.AddRange(alice, bob);
             context.SaveChanges();
         }
 
@@ -78,50 +87,83 @@ namespace cat_cafe.Controllers.Tests
         [TestMethod()]
         public async Task GetCatsTest()
         {
+            // control response type
             var actual = await controller.GetCats();
-
             actual.Result.Should().BeOfType<OkObjectResult>();
 
+            // control response object
             var actualResult = actual.Result as OkObjectResult;
-
             actualResult.Should().NotBeNull();
-            actualResult!.Value.Should().BeEquivalentTo(new List<CatDto>()
-            {
-                new CatDto
-                {
-                    Id = 1,
-                    Name = "Alice",
-                },
-                new CatDto
-                {
-                    Id = 2,
-                    Name = "Bob",
-                }
-            }.AsEnumerable());
+            actualResult!.Value.Should()
+                .BeEquivalentTo(new List<CatDto>() { aliceDto, bobDto }.AsEnumerable());
         }
 
         [TestMethod()]
-        public void GetCatTest()
+        public async Task GetCatTest()
         {
-            Assert.IsTrue(true);
+            // control response type
+            var actual = await controller.GetCat(1);
+            actual.Result.Should().BeOfType<OkObjectResult>();
+
+            // control response object
+            var actualResult = actual.Result as OkObjectResult;
+            actualResult.Should().NotBeNull();
+            actualResult!.Value.Should().BeEquivalentTo(aliceDto);
+        }
+
+        /*
+        [TestMethod()]
+        public async Task PutCatTest()
+        {
+            // Arrange
+            CatDto robert = new() { Id = 2, Name = "Robert" };
+
+            // Act
+            var responseType = await controller.PutCat(bob.Id, robert);
+
+           // System.InvalidOperationException: 
+           // The instance of entity type 'Cat' cannot be tracked because another instance
+           // with the same key value for {'Id'} is already being tracked. 
+
+           // ... this simple update should work out of the box, 
+           // DbContext is already 'scoped' by default instead of singleton
+
+            // Assert
+            responseType.Should().BeOfType<NoContentResult>();
+            // responseType.Result.Should().BeOfType<NoContentResult>();
+            var actual = await controller.GetCat(bob.Id);
+            var actualResult = actual.Result as OkObjectResult;
+            actualResult!.Value.Should().BeEquivalentTo(robert);
+        }
+        */
+
+        [TestMethod()]
+        public async Task PostCatTest()
+        {
+            // Arrange
+            CatDto clyde = new() { Id = 3, Name = "Clyde" };
+
+            // Act
+            var responseType = await controller.PostCat(clyde);
+
+            // Assert
+            responseType.Result.Should().BeOfType<CreatedAtActionResult>();
+            var actual = await controller.GetCat(clyde.Id);
+            var actualResult = actual.Result as OkObjectResult;
+            actualResult!.Value.Should().BeEquivalentTo(clyde);
         }
 
         [TestMethod()]
-        public void PutCatTest()
+        public async Task DeleteCatTest()
         {
-            Assert.IsTrue(true);
-        }
+            // Act
+            var responseType = await controller.DeleteCat(alice.Id);
 
-        [TestMethod()]
-        public void PostCatTest()
-        {
-            Assert.IsTrue(true);
-        }
+            // Assert
+            responseType.Should().BeOfType<NoContentResult>();
 
-        [TestMethod()]
-        public void DeleteCatTest()
-        {
-            Assert.IsTrue(true);
+            var actual = await controller.GetCat(alice.Id);
+            actual.Result.Should().BeOfType<NotFoundResult>();
         }
     }
 }
