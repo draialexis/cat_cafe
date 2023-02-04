@@ -5,7 +5,9 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cat_cafe", "cat_cafe.csproj", "{CC02D05A-3817-4D0A-8766-3FEE0C90941B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "..\Tests\Tests.csproj", "{039A9A95-25ED-4632-9C4B-0AB4E5B5A7B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "..\Tests\Tests.csproj", "{039A9A95-25ED-4632-9C4B-0AB4E5B5A7B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "..\ApiGateway\ApiGateway.csproj", "{18B6DE0C-D6D7-452F-94A2-83DB98194D6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{039A9A95-25ED-4632-9C4B-0AB4E5B5A7B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{039A9A95-25ED-4632-9C4B-0AB4E5B5A7B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{039A9A95-25ED-4632-9C4B-0AB4E5B5A7B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B6DE0C-D6D7-452F-94A2-83DB98194D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B6DE0C-D6D7-452F-94A2-83DB98194D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B6DE0C-D6D7-452F-94A2-83DB98194D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B6DE0C-D6D7-452F-94A2-83DB98194D6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
