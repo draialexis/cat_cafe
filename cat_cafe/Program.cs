@@ -18,6 +18,7 @@ builder.Services.AddDbContext<CatCafeDbContext>();
 //opt.UseInMemoryDatabase("CatCafe"));
 //builder.Services.AddDbContext<BarContext>(opt =>
 //opt.UseSqlite("CatCafe"));
+
 //builder.Services.AddDbContext<CatCafeDbContext>(opt =>
 //opt.UseSqlite("$Data Source ={CatCafe}"));
 
