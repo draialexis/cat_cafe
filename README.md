@@ -21,16 +21,24 @@ We used an ASP .NET Web API, with a Swagger configuration to visualize the inter
 An [Ocelot](https://ocelot.readthedocs.io/en/latest/) API Gateway manages the whole system.
 
 It can be started using Visual Studio if you first right-click the cat-cafe.sln Solution, and go to Properties.
+
 ![step1](./docs/step1.png)
 
 Then set all relevant projects' "Action" to "Start", and they will all be launched simultaneously.
+
 ![step2](./docs/step2.png)
 
 Now you can click "Start" to launch the "Multiple Startup Project".
+
 ![step3](./docs/step3.png)
 
 And observe the API gateway in action.
+
 ![profit](./docs/profit.png)
+
+Overall, the architecture may be summed up like so:
+
+![architecture](./docs/gateway.png)
 
 #### Ports 
 | What | Where |
@@ -116,7 +124,7 @@ Give your new branch a name referring to an issue (or maybe a group of similar i
 git checkout -b branch-name-that-describes-the-new-feature
 ```
 
-Regularly, you might want to get all the new code from your master (yeah, we forgot to rename it "main", sorry) branch, to work with an up-to-date codebase:
+Regularly, you might want to get all the new code from your master branch (yeah, we forgot to rename it "main", sorry), to work with an up-to-date codebase:
 
 ```bash
 git pull --rebase origin master
