@@ -105,3 +105,35 @@
 2023-01-21 08:51:20.382 +01:00 [INF] program start
 2023-01-21 09:52:51.283 +01:00 [INF] program start
 2023-01-21 09:53:00.966 +01:00 [INF] POST => post customer
+2023-01-28 10:43:30.841 +01:00 [INF] program start
+2023-01-28 10:43:40.549 +01:00 [INF] GET => get All customers
+2023-01-28 10:44:16.773 +01:00 [INF] program start
+2023-01-28 10:44:22.429 +01:00 [INF] GET => get All customers
+2023-01-28 10:54:58.453 +01:00 [INF] program start
+2023-01-28 10:55:31.556 +01:00 [INF] program start
+2023-02-04 08:16:09.059 +01:00 [INF] program start
+2023-02-04 08:17:13.242 +01:00 [INF] program start
+2023-02-04 08:33:04.111 +01:00 [INF] program start
+2023-02-04 08:33:11.901 +01:00 [INF] GET => get All customers
+2023-02-04 09:34:41.222 +01:00 [INF] program start
+2023-02-04 09:38:43.323 +01:00 [INF] program start
+2023-02-04 09:44:32.881 +01:00 [INF] program start
+2023-02-04 09:44:44.716 +01:00 [INF] GET => get All customers
+2023-02-04 09:45:51.387 +01:00 [INF] program start
+2023-02-04 09:45:58.688 +01:00 [INF] GET => get All customers
+2023-02-04 09:51:59.042 +01:00 [INF] program start
+2023-02-04 09:52:06.882 +01:00 [INF] GET => get All customers
+2023-02-04 09:52:58.838 +01:00 [INF] program start
+2023-02-04 09:53:07.179 +01:00 [INF] GET => get All customers
+2023-02-04 09:53:07.239 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[0]
+2023-02-04 09:53:21.763 +01:00 [INF] POST => post customer
+2023-02-04 09:53:21.869 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":1,"FullName":"string","Age":0}
+2023-02-04 09:53:25.604 +01:00 [INF] POST => post customer
+2023-02-04 09:53:25.608 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":2,"FullName":"string","Age":0}
+2023-02-04 09:53:28.472 +01:00 [INF] POST => post customer
+2023-02-04 09:53:28.478 +01:00 [INF] POST => 201 cat_cafe.Entities.Customer {"Id":3,"FullName":"string","Age":0}
+2023-02-04 09:53:32.476 +01:00 [INF] GET => get All customers
+2023-02-04 09:53:32.486 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[3]
+2023-02-04 09:53:40.756 +01:00 [INF] program start
+2023-02-04 09:53:50.214 +01:00 [INF] GET => get All customers
+2023-02-04 09:53:50.290 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[3]

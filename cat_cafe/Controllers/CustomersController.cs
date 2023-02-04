@@ -18,11 +18,11 @@ namespace cat_cafe.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerContext _context;
+        private readonly CatCafeDbContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<CustomersController> _logger;
 
-        public CustomersController(CustomerContext context,IMapper mapper,ILogger<CustomersController> logger)
+        public CustomersController(CatCafeDbContext context,IMapper mapper,ILogger<CustomersController> logger)
         {
             _context = context;
             _mapper = mapper;
@@ -34,8 +34,9 @@ namespace cat_cafe.Controllers
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
         {
             Log.Information(this.Request.Method + " => get All customers");
+            _logger.LogInformation("hello");
 
-            var customers = await _context.Customers.ToListAsync();
+            var customers = await _context.customers.ToListAsync();
 
             Log.Information(this.Request.Method + " => "
                 + this.Response.StatusCode.ToString() + " "
@@ -49,7 +50,7 @@ namespace cat_cafe.Controllers
         public async Task<ActionResult<CustomerDto>> GetCustomer(long id)
         {
             Log.Information(this.Request.Method + " => get by ID {@id}",id);
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context.customers.FindAsync(id);
 
             if (customer == null)
             {
@@ -112,7 +113,7 @@ namespace cat_cafe.Controllers
             Log.Information(this.Request.Method + " => post customer");
 
             Customer customer = _mapper.Map<Customer>(customerDto);
-            _context.Customers.Add(customer);
+            _context.customers.Add(customer);
             await _context.SaveChangesAsync();
 
             Log.Information(this.Request.Method + " => "
@@ -129,14 +130,14 @@ namespace cat_cafe.Controllers
         {
             Log.Information(this.Request.Method + " => delete by ID {@id}", id);
 
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context.customers.FindAsync(id);
             if (customer == null)
             {
                 Log.Information(this.Request.Method + " => " + NotFound().StatusCode.ToString());
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.customers.Remove(customer);
             await _context.SaveChangesAsync();
 
             Log.Information(this.Request.Method + " => "
@@ -149,7 +150,7 @@ namespace cat_cafe.Controllers
 
         private bool CustomerExists(long id)
         {
-            return _context.Customers.Any(e => e.Id == id);
+            return _context.customers.Any(e => e.Id == id);
         }
     }
 }

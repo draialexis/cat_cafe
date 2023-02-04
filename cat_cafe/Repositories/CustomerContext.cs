@@ -1,28 +1,33 @@
-﻿using System;
-using cat_cafe.Entities;
-using Microsoft.EntityFrameworkCore;
-namespace cat_cafe.Repositories
-{
-	public class CustomerContext:DbContext
-	{
+﻿//using System;
+//using cat_cafe.Entities;
+//using Microsoft.EntityFrameworkCore;
+//namespace cat_cafe.Repositories
+//{
+//	public class CustomerContext:DbContext
+//	{
 
-        public readonly IConfiguration configuration;
+//        public readonly IConfiguration configuration;
 
-        public CustomerContext(IConfiguration _configuration)
-        {
-            configuration = _configuration;
-        }
+//        public string DbPath { get; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder opts)
-        {
-            opts.UseSqlite(configuration.GetConnectionString(@"Data Source=CatCafe.db"));
-        }
+//        public CustomerContext(IConfiguration _configuration)
+//        {
+//            configuration = _configuration;
+//            var folder = Environment.SpecialFolder.LocalApplicationData;
+//            var path = Environment.GetFolderPath(folder);
+//            DbPath = System.IO.Path.Join(path, "CatCafe.db");
+//        }
+
+//        protected override void OnConfiguring(DbContextOptionsBuilder opts)
+//        {
+//            opts.UseSqlite($"Data Source=DbPath.db");
+//        }
 
 
-        /*public CustomerContext(DbContextOptions<CustomerContext> options)
-            : base(options)
-        { }*/
-        public DbSet<Customer> Customers { get; set; } = null!;
-    }
-}
+//        /*public CustomerContext(DbContextOptions<CustomerContext> options)
+//            : base(options)
+//        { }*/
+//        public DbSet<Customer> Customers { get; set; } = null!;
+//    }
+//}
 

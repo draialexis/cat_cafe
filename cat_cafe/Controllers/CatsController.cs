@@ -16,10 +16,10 @@ namespace cat_cafe.Controllers
     [ApiController]
     public class CatsController : ControllerBase
     {
-        private readonly CatContext _context;
+        private readonly CatCafeDbContext _context;
         private readonly IMapper _mapper;
 
-        public CatsController(CatContext context, IMapper mapper)
+        public CatsController(CatCafeDbContext context, IMapper mapper)
         {
             _mapper = mapper;
             _context = context;
@@ -29,7 +29,7 @@ namespace cat_cafe.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
         {
-            var cats = await _context.Cats.ToListAsync();
+            var cats = await _context.cats.ToListAsync();
             return _mapper.Map<List<CatDto>>(cats);
 
         }
@@ -38,7 +38,7 @@ namespace cat_cafe.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CatDto>> GetCat(long id)
         {
-            var cat = await _context.Cats.FindAsync(id);
+            var cat = await _context.cats.FindAsync(id);
 
             if (cat == null)
             {
@@ -86,7 +86,7 @@ namespace cat_cafe.Controllers
         public async Task<ActionResult<CatDto>> PostCat(CatDto catDto)
         {
             Cat cat = _mapper.Map<Cat>(catDto);
-            _context.Cats.Add(cat);
+            _context.cats.Add(cat);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCat", new { id = catDto.Id }, _mapper.Map<CatDto>(cat));
@@ -96,13 +96,13 @@ namespace cat_cafe.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCat(long id)
         {
-            var cat = await _context.Cats.FindAsync(id);
+            var cat = await _context.cats.FindAsync(id);
             if (cat == null)
             {
                 return NotFound();
             }
 
-            _context.Cats.Remove(cat);
+            _context.cats.Remove(cat);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -110,7 +110,7 @@ namespace cat_cafe.Controllers
 
         private bool CatExists(long id)
         {
-            return _context.Cats.Any(e => e.Id == id);
+            return _context.cats.Any(e => e.Id == id);
         }
     }
 }

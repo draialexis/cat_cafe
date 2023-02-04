@@ -14,9 +14,9 @@ namespace cat_cafe.Controllers
     [ApiController]
     public class BarsController : ControllerBase
     {
-        private readonly BarContext _context;
+        private readonly CatCafeDbContext _context;
 
-        public BarsController(BarContext context)
+        public BarsController(CatCafeDbContext context)
         {
             _context = context;
         }
@@ -25,14 +25,14 @@ namespace cat_cafe.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bar>>> GetBars()
         {
-            return await _context.Bars.ToListAsync();
+            return await _context.bars.ToListAsync();
         }
 
         // GET: api/Bars/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bar>> GetBar(long id)
         {
-            var bar = await _context.Bars.FindAsync(id);
+            var bar = await _context.bars.FindAsync(id);
 
             if (bar == null)
             {
@@ -78,7 +78,7 @@ namespace cat_cafe.Controllers
         [HttpPost]
         public async Task<ActionResult<Bar>> PostBar(Bar bar)
         {
-            _context.Bars.Add(bar);
+            _context.bars.Add(bar);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBar", new { id = bar.Id }, bar);
@@ -88,13 +88,13 @@ namespace cat_cafe.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBar(long id)
         {
-            var bar = await _context.Bars.FindAsync(id);
+            var bar = await _context.bars.FindAsync(id);
             if (bar == null)
             {
                 return NotFound();
             }
 
-            _context.Bars.Remove(bar);
+            _context.bars.Remove(bar);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +102,7 @@ namespace cat_cafe.Controllers
 
         private bool BarExists(long id)
         {
-            return _context.Bars.Any(e => e.Id == id);
+            return _context.bars.Any(e => e.Id == id);
         }
     }
 }
