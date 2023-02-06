@@ -1,3 +1,5 @@
+[![Build Status](https://codefirst.iut.uca.fr/api/badges/alexis.drai/cat_cafe/status.svg)](https://codefirst.iut.uca.fr/alexis.drai/cat_cafe)
+
 # Cat Café
 
 ## Global architecture
