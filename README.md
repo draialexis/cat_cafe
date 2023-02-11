@@ -9,19 +9,23 @@
 * [WebSocket](#websocket)
 * [API type choices](#api-type-choices)
 * [API Gateway](#api-gateway)
+* [Testing the app](#testing-the-app)
 
 ## Global architecture
 
+---
 ### Concept
 
 This application attempts to modelize a cat café, with cafés (called "bars" here), cats, and customers.
 
+---
 ### REST API
 
 Those three entities can be persisted via a REST API. They can also be updated, queried, and removed. 
 
 We used an ASP .NET Web API, with a Swagger configuration to visualize the interface.
 
+---
 ### WebSocket
 
 A WebSocket was set up to notify clients (who subscribe to it) whenever a Cat is `POST`ed. 
@@ -40,6 +44,7 @@ new WebSocket("wss://localhost:5003/gateway/ws").onmessage = function (event) {
 - `"entity-created"` is a hard-coded event ID and should not be changed.
 - you are free to change the content of the `Alert` itself, of course
 
+---
 ### API type choices
 
 #### REST API 
@@ -61,7 +66,10 @@ Since the connection is opened once and closed once, we avoid any performance lo
 and closing a connection for each request-response cycle. Similarly, a server that uses a websocket 
 can reduce its load, because it is now pushing updates directly instead of being polled regularly by many clients. 
 
+---
 ### API Gateway
+
+#### How to launch both projects
 
 An [Ocelot](https://ocelot.readthedocs.io/en/latest/) API Gateway manages the whole system.
 
@@ -155,6 +163,19 @@ The gateway uses rate limiting to make sure that clients cannot send an all-incl
       }
     } ...
 ```
+---
+## Testing the app
+
+0. Prepare to use Postman
+1. Start both the `cat_cafe` and `ApiGateway` projects (you may refer to [this procedure](#how-to-launch-both-projects)). Two browser windows will open, which you will not need to use much.
+2. Use whichever browser window to open a WebSocket, so that you will get notifications (you may refer to [that procedure](#websocket))
+3. In Postman, inside a workspace, click the `Import` button in the top left corner. Then click `Choose files` and find the collection to import in `docs/Cat Café.postman_collection.json`, in this repo. Follow the procedure to save it.
+4. Keep an eye on the browser window you used to open a WebSocket, and execute the requests in this imported collection. When using `POST`, you should get an alert in the browser window.
+
+Notice that the REST API and the WebSocket are accessed through our API Gateway. 
+
+In a real-life scenario, we could use IP-blocking or firewalls to ensure that port 7229 can only be accessed by the app itself and the gateway. 
+
 ---
 ## To contribute (workflow)
 
