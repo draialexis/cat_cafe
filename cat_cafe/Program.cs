@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using cat_cafe.Repositories;
 using Serilog;
-using Serilog.Sinks.File;
 using System.Net.WebSockets;
 using cat_cafe.WeSo;
 
@@ -21,6 +20,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews();
+builder.Services.AddApiVersioning(o => { o.ReportApiVersions = true; });
+builder.Services.AddVersionedApiExplorer(
+    options =>
+    {
+        options.GroupNameFormat = "'v'VVV";
+        options.SubstituteApiVersionInUrl = true;
+    }
+);
 
 var app = builder.Build();
 

@@ -16,8 +16,10 @@ using cat_cafe.WeSo;
 
 namespace cat_cafe.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     public class CatsController : ControllerBase
     {
         private readonly CatCafeContext _context;
@@ -38,17 +40,32 @@ namespace cat_cafe.Controllers
             _webSocketHandler = webSocketHandler;
         }
 
-        // GET: api/Cats
+        // GET: api/v1/Cats
         [HttpGet]
+        [MapToApiVersion("1.0")]
+
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
+        {
+            var cats = await _context.Cats.ToListAsync();
+            cats.Add(new Cat { Id = -1, Age = 42, Name = "Hi! I'm the secret V1 cat" });
+            return Ok(_mapper.Map<List<CatDto>>(cats));
+        }
+
+
+        // GET: api/v2/Cats
+        [HttpGet]
+        [MapToApiVersion("2.0")]
+
+        public async Task<ActionResult<IEnumerable<CatDto>>> GetCatsV2()
         {
             var cats = await _context.Cats.ToListAsync();
 
             return Ok(_mapper.Map<List<CatDto>>(cats));
         }
 
-        // GET: api/Cats/5
+        // GET: api/v1/Cats/5
         [HttpGet("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<CatDto>> GetCat(long id)
         {
             var cat = await _context.Cats.FindAsync(id);
@@ -61,9 +78,10 @@ namespace cat_cafe.Controllers
             return Ok(_mapper.Map<CatDto>(cat));
         }
 
-        // PUT: api/Cats/5
+        // PUT: api/v1/Cats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> PutCat(long id, CatDto catDto)
         {
             if (id != catDto.Id)
@@ -93,9 +111,10 @@ namespace cat_cafe.Controllers
             return NoContent();
         }
 
-        // POST: api/Cats
+        // POST: api/v1/Cats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<CatDto>> PostCat(CatDto catDto)
         {
             Cat cat = _mapper.Map<Cat>(catDto);
@@ -107,8 +126,9 @@ namespace cat_cafe.Controllers
             return CreatedAtAction("GetCat", new { id = catDto.Id }, _mapper.Map<CatDto>(cat));
         }
 
-        // DELETE: api/Cats/5
+        // DELETE: api/v1/Cats/5
         [HttpDelete("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> DeleteCat(long id)
         {
             var cat = await _context.Cats.FindAsync(id);

@@ -14,8 +14,9 @@ using System.Xml.Linq;
 
 namespace cat_cafe.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("2.0")]
     public class BarsController : ControllerBase
     {
         private readonly CatCafeContext _context;
@@ -29,8 +30,9 @@ namespace cat_cafe.Controllers
             _logger = logger;
         }
 
-        // GET: api/Bars
+        // GET: api/v1/Bars
         [HttpGet]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<IEnumerable<BarDto>>> GetBars()
         {
             var bars = _context.Bars
@@ -45,8 +47,9 @@ namespace cat_cafe.Controllers
             return _mapper.Map<List<BarDto>>(bars);
         }
 
-        // GET: api/Bars/5
+        // GET: api/v1/Bars/5
         [HttpGet("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BarDto>> GetBar(long id)
         {
             var bar = _context.Bars.Include(p => p.cats)
@@ -66,9 +69,10 @@ namespace cat_cafe.Controllers
             return _mapper.Map<BarDto>(bar.Result);
         }
 
-        // PUT: api/Bars/5
+        // PUT: api/v1/Bars/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> PutBar(long id, BarDto barDto)
         {
             if (id != barDto.Id)
@@ -97,9 +101,10 @@ namespace cat_cafe.Controllers
             return NoContent();
         }
 
-        // POST: api/Bars
+        // POST: api/v1/Bars
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BarDto>> PostBar(BarDto barDto)
         {
            // Bar bar = _mapper.Map<Bar>(barDto);
@@ -112,8 +117,9 @@ namespace cat_cafe.Controllers
             return CreatedAtAction("GetBar", new { id = barDto.Id }, _mapper.Map<BarDto>(bar));
         }
 
-        // DELETE: api/Bars/5
+        // DELETE: api/v1/Bars/5
         [HttpDelete("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> DeleteBar(long id)
         {
             var bar = await _context.Bars.FindAsync(id);

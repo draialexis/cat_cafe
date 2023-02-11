@@ -4,9 +4,27 @@
   },
   "Routes": [
     {
+      "UpstreamPathTemplate": "/gateway/v1/cats",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/v1/cats",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7229
+        }
+      ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
+    {
       "UpstreamPathTemplate": "/gateway/cats",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/api/cats",
+      "DownstreamPathTemplate": "/api/v2/cats",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -24,7 +42,7 @@
     {
       "UpstreamPathTemplate": "/gateway/cats",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/api/cats",
+      "DownstreamPathTemplate": "/api/v1/cats",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -36,7 +54,7 @@
     {
       "UpstreamPathTemplate": "/gateway/cats/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/api/cats/{id}",
+      "DownstreamPathTemplate": "/api/v1/cats/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -49,7 +67,7 @@
     {
       "UpstreamPathTemplate": "/gateway/bars",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/api/bars",
+      "DownstreamPathTemplate": "/api/v1/bars",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -67,7 +85,7 @@
     {
       "UpstreamPathTemplate": "/gateway/bars",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/api/bars",
+      "DownstreamPathTemplate": "/api/v1/bars",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -79,7 +97,7 @@
     {
       "UpstreamPathTemplate": "/gateway/bars/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/api/bars/{id}",
+      "DownstreamPathTemplate": "/api/v1/bars/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -92,7 +110,7 @@
     {
       "UpstreamPathTemplate": "/gateway/customers",
       "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamPathTemplate": "/api/customers",
+      "DownstreamPathTemplate": "/api/v1/customers",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -107,7 +125,7 @@
     {
       "UpstreamPathTemplate": "/gateway/customers",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/api/customers",
+      "DownstreamPathTemplate": "/api/v1/customers",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -119,7 +137,7 @@
     {
       "UpstreamPathTemplate": "/gateway/customers/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
-      "DownstreamPathTemplate": "/api/customers/{id}",
+      "DownstreamPathTemplate": "/api/v1/customers/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
