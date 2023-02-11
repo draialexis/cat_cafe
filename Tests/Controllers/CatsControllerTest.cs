@@ -31,20 +31,20 @@ namespace cat_cafe.Controllers.Tests
 
         private readonly MapperConfiguration mapperConf = new(mapper => mapper.AddProfile(typeof(CatMapper)));
 
-        private readonly DbContextOptions<CatCafeContext> options = new DbContextOptionsBuilder<CatCafeContext>()
-                .UseInMemoryDatabase(databaseName: "CatCafeTests")
+        private readonly DbContextOptions<CatCafeDbContext> options = new DbContextOptionsBuilder<CatCafeDbContext>()
+                .UseSqlite("Data Source=EFCatCafe.db").EnableSensitiveDataLogging()
                 .Options;
 
         private readonly IMapper mapper;
 
-        private readonly CatCafeContext context;
+        private readonly CatCafeDbContext context;
 
         private readonly CatsController controller;
 
         public CatsControllerTest()
         {
             mapper = mapperConf.CreateMapper();
-            context = new CatCafeContext(options);
+            context = new CatCafeDbContext(options);
             controller = new CatsController(context, mapper, logger);
         }
 
@@ -53,7 +53,7 @@ namespace cat_cafe.Controllers.Tests
         public void BeforeEach()
         {
             context.Database.EnsureCreated();
-            context.Cats.AddRange(
+            context.cats.AddRange(
                 new Cat
                 {
                     Id = 1,

@@ -149,3 +149,4 @@
 2023-02-04 11:48:05.671 +01:00 [INF] program start
 2023-02-04 11:48:15.442 +01:00 [INF] GET => get All customers
 2023-02-04 11:48:15.516 +01:00 [INF] GET => 200 System.Collections.Generic.List`1[cat_cafe.Entities.Customer] length[5]
+2023-02-04 12:00:49.695 +01:00 [INF] program start
