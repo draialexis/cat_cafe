@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "4448c1b2-03b7-4b34-9d5b-ee364ff17986",
+		"name": "Cat Café",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25802734"
+	},
+	"item": [
+		{
+			"name": "Create cat 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Versailles\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cat 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Llanfair­pwll­gwyn­gyll­go­gery­chwyrn­drobwll­llan­tysilio­gogo­goch\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cat 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"London\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all cats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read cat 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update cat 3",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 3,\r\n    \"name\": \"Camden Town\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all cats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cat 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all cats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
