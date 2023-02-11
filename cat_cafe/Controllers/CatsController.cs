@@ -12,6 +12,7 @@ using cat_cafe.Dto;
 using Serilog;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging.Abstractions;
+using cat_cafe.WeSo;
 
 namespace cat_cafe.Controllers
 {
@@ -22,12 +23,19 @@ namespace cat_cafe.Controllers
         private readonly CatCafeContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<CatsController> _logger;
+        private readonly WebSocketHandler _webSocketHandler;
 
-        public CatsController(CatCafeContext context, IMapper mapper, ILogger<CatsController> logger)
+        public CatsController(
+            CatCafeContext context, 
+            IMapper mapper, 
+            ILogger<CatsController> logger,
+            WebSocketHandler webSocketHandler
+            )
         {
             _mapper = mapper;
             _context = context;
             _logger = logger;
+            _webSocketHandler = webSocketHandler;
         }
 
         // GET: api/Cats
@@ -93,6 +101,8 @@ namespace cat_cafe.Controllers
             Cat cat = _mapper.Map<Cat>(catDto);
             _context.Cats.Add(cat);
             await _context.SaveChangesAsync();
+
+            await _webSocketHandler.BroadcastMessageAsync("entity-created");
 
             return CreatedAtAction("GetCat", new { id = catDto.Id }, _mapper.Map<CatDto>(cat));
         }
