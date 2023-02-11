@@ -98,7 +98,7 @@ The Gateway routes offer access to the REST API in a similar way as the REST API
 | REST(old) | Gateway(current) | 
 |--|--|
 | `GET` on `https://localhost/7229/api/cats` | `GET` on `https://localhost/5003/gateway/cats` |
-| `POST` on `https://localhost/7229/api/bars/{id}` | `POST` on `https://localhost/5003/gateway/bars/{id}` |
+| `DELETE` on `https://localhost/7229/api/bars/{id}` | `DELETE` on `https://localhost/5003/gateway/bars/{id}` |
 
 ...and for the websocket:
 - old :
