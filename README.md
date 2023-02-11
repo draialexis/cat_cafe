@@ -88,8 +88,8 @@ Overall, the architecture may be summed up like so:
 #### Ports 
 | What | Where |
 |--|--|
-| REST API | https://localhost/7229 |
-| API Gateway | https://localhost/5003 |
+| REST API | https://localhost:7229 |
+| API Gateway | https://localhost:5003 |
 | WebSocket | ... |
 
 #### Routes
@@ -97,8 +97,8 @@ The Gateway routes offer access to the REST API in a similar way as the REST API
 
 | REST(old) | Gateway(current) | 
 |--|--|
-| `GET` on `https://localhost/7229/api/cats` | `GET` on `https://localhost/5003/gateway/cats` |
-| `DELETE` on `https://localhost/7229/api/bars/{id}` | `DELETE` on `https://localhost/5003/gateway/bars/{id}` |
+| `GET` on `https://localhost:7229/api/cats` | `GET` on `https://localhost:5003/gateway/cats` |
+| `DELETE` on `https://localhost:7229/api/bars/{id}` | `DELETE` on `https://localhost:5003/gateway/bars/{id}` |
 
 ...and for the websocket:
 - old :
