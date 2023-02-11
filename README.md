@@ -4,13 +4,19 @@
 
 # Cat Café
 
+## Table of Contents
+* [REST API](#rest-api)
+* [WebSocket](#websocket)
+* [API type choices](#api-type-choices)
+* [API Gateway](#api-gateway)
+
 ## Global architecture
 
 ### Concept
 
 This application attempts to modelize a cat café, with cafés (called "bars" here), cats, and customers.
 
-### API REST
+### REST API
 
 Those three entities can be persisted via a REST API. They can also be updated, queried, and removed. 
 
@@ -18,7 +24,7 @@ We used an ASP .NET Web API, with a Swagger configuration to visualize the inter
 
 ### WebSocket
 
-A websocket was set up to notify clients (who subscribe to it) whenever a Cat is `POST`ed. 
+A WebSocket was set up to notify clients (who subscribe to it) whenever a Cat is `POST`ed. 
 
 Clients need to subscribe by typing the following code in the console of their browser, in developer mode :
 
@@ -33,6 +39,28 @@ new WebSocket("wss://localhost:5003/gateway/ws").onmessage = function (event) {
 - while the app uses port `7229` in our default config, **you should use port `5003` anyway** to subscribe to our WebSocket through our *API Gateway*
 - `"entity-created"` is a hard-coded event ID and should not be changed.
 - you are free to change the content of the `Alert` itself, of course
+
+### API type choices
+
+#### REST API 
+
+REST APIs are scalable, standardized, loosely coupled with clients, stateless, and flexible.
+
+Indeed, they can can easily handle multiple requests simultaneously, making them scalable for applications with increasing demands.
+They use standard HTTP methods and return data in a format (JSON, XML, YAML, etc.) that can be easily consumed by a wide range of clients, including mobiles.
+
+Besides, they can easily be cached and optimized for performance.
+
+#### WebSocket
+
+WebSockets provide real-time bi-directionnal communication, which is very useful for gaming, chat applications, or setting up notifications.
+Said communication is not only bi-directionnal, but also full-duplex: clients and servers can send and receive data
+simultaneously.
+
+Since the connection is opened once and closed once, we avoid any performance loss linked to opening
+and closing a connection for each request-response cycle. Similarly, a server that uses a websocket 
+can reduce its load, because it is now pushing updates directly instead of being polled regularly by many clients. 
+
 ### API Gateway
 
 An [Ocelot](https://ocelot.readthedocs.io/en/latest/) API Gateway manages the whole system.
