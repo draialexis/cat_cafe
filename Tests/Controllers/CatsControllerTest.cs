@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
-
+using cat_cafe.WeSo;
 
 namespace cat_cafe.Controllers.Tests
 {
@@ -64,7 +64,7 @@ namespace cat_cafe.Controllers.Tests
         {
             mapper = mapperConf.CreateMapper();
             context = new CatCafeContext(options);
-            controller = new CatsController(context, mapper, logger);
+            controller = new CatsController(context, mapper, logger, new WebSocketHandler(new List<System.Net.WebSockets.WebSocket>()));
             aliceDto = mapper.Map<CatDto>(alice);
             bobDto = mapper.Map<CatDto>(bob);
         }

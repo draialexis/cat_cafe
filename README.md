@@ -8,7 +8,7 @@
 
 ### Concept
 
-This application attempts to modelize a cat café, with cafés (called "bars" here), cats, and customers. The cats can go "meow".
+This application attempts to modelize a cat café, with cafés (called "bars" here), cats, and customers.
 
 ### API REST
 
@@ -18,8 +18,21 @@ We used an ASP .NET Web API, with a Swagger configuration to visualize the inter
 
 ### WebSocket
 
-...
+A websocket was set up to notify clients (who subscribe to it) whenever a Cat is `POST`ed. 
 
+Clients need to subscribe by typing the following code in the console of their browser, in developer mode :
+
+```js
+new WebSocket("wss://localhost:5003/gateway/ws").onmessage = function (event) {
+  if (event.data === "entity-created") {
+    alert("A new entity was created!");
+  }
+};
+```
+*Note*: 
+- while the app uses port `7229` in our default config, **you should use port `5003` anyway** to subscribe to our WebSocket through our *API Gateway*
+- `"entity-created"` is a hard-coded event ID and should not be changed.
+- you are free to change the content of the `Alert` itself, of course
 ### API Gateway
 
 An [Ocelot](https://ocelot.readthedocs.io/en/latest/) API Gateway manages the whole system.
@@ -54,12 +67,21 @@ Overall, the architecture may be summed up like so:
 #### Routes
 The Gateway routes offer access to the REST API in a similar way as the REST API itself, with a small transformation: there is a new port, and the word "gateway" replaces "api". The REST API's Swagger UI will give you all the information required about those routes.
 
-| REST(old) | Gateway(current) |
+| REST(old) | Gateway(current) | 
 |--|--|
-| `.../7229/api/...` | `.../5003/gateway/...` |
 | `GET` on `https://localhost/7229/api/cats` | `GET` on `https://localhost/5003/gateway/cats` |
 | `POST` on `https://localhost/7229/api/bars/{id}` | `GET` on `https://localhost/5003/gateway/bars/{id}` |
- 
+
+...and for the websocket:
+- old :
+```js
+new WebSocket("wss://localhost:7229/ws").onmessage = function (event) {...};
+```
+
+- new : 
+```js
+new WebSocket("wss://localhost:5003/gateway/ws").onmessage = function (event) {...};
+```
 
 #### Caching
 The gateway uses caching to ensure that the entire list of customers is only queried from the database once every 10 seconds. The rest of the time, clients sending `GET`-all requests get served the contents of a cache. 
