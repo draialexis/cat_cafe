@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4448c1b2-03b7-4b34-9d5b-ee364ff17986",
+		"_postman_id": "2347c985-6c2f-4532-abd1-63083abc4efb",
 		"name": "Cat Café",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25802734"
@@ -94,7 +94,7 @@
 			"response": []
 		},
 		{
-			"name": "Read all cats",
+			"name": "Read all cats (v2)",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -165,7 +165,7 @@
 			"response": []
 		},
 		{
-			"name": "Read all cats",
+			"name": "Read all cats (v2)",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -206,12 +206,12 @@
 			"response": []
 		},
 		{
-			"name": "Read all cats",
+			"name": "Read all cats (v1)",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:5003/gateway/cats",
+					"raw": "https://localhost:5003/gateway/v1/cats",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -219,6 +219,7 @@
 					"port": "5003",
 					"path": [
 						"gateway",
+						"v1",
 						"cats"
 					]
 				}

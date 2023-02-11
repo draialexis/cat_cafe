@@ -14,8 +14,9 @@ using Newtonsoft.Json;
 
 namespace cat_cafe.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("2.0")]
     public class CustomersController : ControllerBase
     {
         private readonly CatCafeContext _context;
@@ -29,8 +30,9 @@ namespace cat_cafe.Controllers
             _logger = logger;
         }
 
-        // GET: api/Customers
+        // GET: api/v1/Customers
         [HttpGet]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
         {
             Log.Information(this.Request.Method + " => get All customers");
@@ -44,8 +46,9 @@ namespace cat_cafe.Controllers
             return Ok(_mapper.Map<List<CustomerDto>>(customers));
         }
 
-        // GET: api/Customers/5
+        // GET: api/v1/Customers/5
         [HttpGet("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<CustomerDto>> GetCustomer(long id)
         {
             Log.Information(this.Request.Method + " => get by ID {@id}",id);
@@ -64,9 +67,10 @@ namespace cat_cafe.Controllers
             return Ok(_mapper.Map<CustomerDto>(customer));
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/v1/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> PutCustomer(long id, CustomerDto customerDto)
         {
             Log.Information(this.Request.Method + " => put by ID {@id}", id);
@@ -104,9 +108,10 @@ namespace cat_cafe.Controllers
             return Ok();
         }
 
-        // POST: api/Customers
+        // POST: api/v1/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<Customer>> PostCustomer(CustomerDto customerDto)
         {
             Log.Information(this.Request.Method + " => post customer");
@@ -123,8 +128,9 @@ namespace cat_cafe.Controllers
             return CreatedAtAction("GetCustomer", new { id = customer.Id }, _mapper.Map<Customer>( customer));
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/v1/Customers/5
         [HttpDelete("{id}")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> DeleteCustomer(long id)
         {
             Log.Information(this.Request.Method + " => delete by ID {@id}", id);

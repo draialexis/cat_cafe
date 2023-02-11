@@ -1,22 +1,12 @@
 ﻿using AutoMapper;
-using Castle.Core.Logging;
-using cat_cafe.Controllers;
 using cat_cafe.Dto;
 using cat_cafe.Entities;
 using cat_cafe.Mappers;
 using cat_cafe.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using cat_cafe.WeSo;
 
@@ -85,10 +75,10 @@ namespace cat_cafe.Controllers.Tests
         }
 
         [TestMethod()]
-        public async Task GetCatsTest()
+        public async Task GetCatsV2Test()
         {
             // control response type
-            var actual = await controller.GetCats();
+            var actual = await controller.GetCatsV2();
             actual.Result.Should().BeOfType<OkObjectResult>();
 
             // control response object

@@ -9,6 +9,7 @@
 * [WebSocket](#websocket)
 * [API type choices](#api-type-choices)
 * [API Gateway](#api-gateway)
+* [Versioning](#versioning)
 * [Testing the app](#testing-the-app)
 
 ## Global architecture
@@ -163,14 +164,39 @@ The gateway uses rate limiting to make sure that clients cannot send an all-incl
       }
     } ...
 ```
+
+---
+### Versioning
+
+This API is versioned, but our clients do not need to know about it. 
+We use URIs to implement our versioning, but our clients do not need to rewrite their requests to stay up-to-date.
+That is all thanks to our API Gateway, which masks these details:
+
+```json
+   ...
+   {
+      "UpstreamPathTemplate": "/gateway/cats",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/v2/cats",
+      ...
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/cats",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/v1/cats",
+      ...
+    },
+    ...
+```
+
 ---
 ## Testing the app
 
 0. Prepare to use Postman
-1. Start both the `cat_cafe` and `ApiGateway` projects (you may refer to [this procedure](#how-to-launch-both-projects)). Two browser windows will open, which you will not need to use much.
-2. Use whichever browser window to open a WebSocket, so that you will get notifications (you may refer to [that procedure](#websocket))
-3. In Postman, inside a workspace, click the `Import` button in the top left corner. Then click `Choose files` and find the collection to import in `docs/Cat Café.postman_collection.json`, in this repo. Follow the procedure to save it.
-4. Keep an eye on the browser window you used to open a WebSocket, and execute the requests in this imported collection. When using `POST`, you should get an alert in the browser window.
+1. Start both the `cat_cafe` and `ApiGateway` projects (you may refer to [this procedure](#how-to-launch-both-projects)). Two browser windows will open, but *you can ignore SwaggerUI*.
+2. Use a browser window to open a WebSocket, so that you will get notifications (you may refer to [that procedure](#websocket))
+3. In Postman, inside a workspace, click the `Import` button in the top left corner. Then click `Choose files` and find the collection to import in `docs/cat_cafe.postman_collection.json`, in this repo. Follow the procedure to save it.
+4. Keep an eye on the browser window that you used to open a WebSocket, and execute the requests in this imported collection. When using `POST`, you should get an alert in the browser window.
 
 Notice that the REST API and the WebSocket are accessed through our API Gateway. 
 
