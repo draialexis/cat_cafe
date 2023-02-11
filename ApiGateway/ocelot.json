@@ -31,13 +31,7 @@
           "Host": "localhost",
           "Port": 7229
         }
-      ],
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      }
+      ]
     },
     {
       "UpstreamPathTemplate": "/gateway/cats",

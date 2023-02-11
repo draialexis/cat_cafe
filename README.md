@@ -9,6 +9,7 @@
 * [WebSocket](#websocket)
 * [API type choices](#api-type-choices)
 * [API Gateway](#api-gateway)
+* [Versioning](#versioning)
 * [Testing the app](#testing-the-app)
 
 ## Global architecture
@@ -163,6 +164,31 @@ The gateway uses rate limiting to make sure that clients cannot send an all-incl
       }
     } ...
 ```
+
+---
+### Versioning
+
+This API is versioned, but our clients do not need to know about it. 
+We use URIs to implement our versioning, but our clients do not need to rewrite their requests to stay up-to-date.
+That is all thanks to our API Gateway, which masks these details:
+
+```json
+   ...
+   {
+      "UpstreamPathTemplate": "/gateway/cats",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/api/v2/cats",
+      ...
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/cats",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/api/v1/cats",
+      ...
+    },
+    ...
+```
+
 ---
 ## Testing the app
 
