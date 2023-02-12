@@ -4,8 +4,6 @@ using cat_cafe.Entities;
 using cat_cafe.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Serilog;
 
 namespace cat_cafe.Controllers
 {

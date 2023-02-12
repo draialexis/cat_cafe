@@ -9,9 +9,10 @@ namespace cat_cafe.Mappers
         public BarMapper()
         {
             CreateMap<Bar, BarDto>()
-                .ForMember(dest => dest.CatIds, opt => opt.MapFrom(src => src.Cats.Select(c => c.Id)));
+            .ForMember(dest => dest.CatIds, opt => opt.MapFrom(src => src.Cats.Select(c => c.Id)));
 
             CreateMap<BarDto, Bar>();
         }
     }
 }
+
