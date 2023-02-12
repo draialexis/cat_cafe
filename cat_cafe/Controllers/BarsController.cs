@@ -113,7 +113,7 @@ namespace cat_cafe.Controllers
         // POST: api/v1/Bars
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BarDto>> CreateBar(BarDto barDto)
+        public async Task<ActionResult<BarDto>> PostBar(BarDto barDto)
         {
             try
             {
