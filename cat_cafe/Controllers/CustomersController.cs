@@ -129,10 +129,5 @@ namespace cat_cafe.Controllers
 
             return Ok();
         }
-
-        private bool CustomerExists(long id)
-        {
-            return _context.Customers.Any(e => e.Id == id);
-        }
     }
 }

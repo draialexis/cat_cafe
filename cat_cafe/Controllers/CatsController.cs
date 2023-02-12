@@ -123,10 +123,5 @@ namespace cat_cafe.Controllers
 
             return NoContent();
         }
-
-        private bool CatExists(long id)
-        {
-            return _context.Cats.Any(e => e.Id == id);
-        }
     }
 }
