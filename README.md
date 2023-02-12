@@ -86,13 +86,16 @@ Now you can click "Start" to launch the "Multiple Startup Project".
 
 ![step3](./docs/step3.png)
 
-And observe the API gateway in action.
+Then, the easiest way to try our API is to use Postman or an equivalent. Feel free to use Swagger UI, but it counteracts some of what our API does, with regards to versioning and using the Gateway.
 
-![profit](./docs/profit.png)
+---
 
 Overall, the architecture may be summed up like so:
 
 ![architecture](./docs/gateway.png)
+
+
+---
 
 #### Ports 
 | What | Where |
