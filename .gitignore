@@ -1,8 +1,11 @@
 ﻿# Created by https://www.toptal.com/developers/gitignore/api/dotnetcore,visualstudio,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore,visualstudio,visualstudiocode
 
-log.txt
-cat_cafe/log.txt
+*.txt
+*.db
+*.db-shm
+*.db-wal
+
 
 ### DotnetCore ###
 # .NET Core build folders
