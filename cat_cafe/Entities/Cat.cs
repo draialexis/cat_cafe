@@ -8,7 +8,8 @@ namespace cat_cafe.Entities
         public string? Name { get; set; }
         [Required]
         public int Age { get; set; } = 0;
-
+        public long? BarId { get; set; }
+        public Bar? Bar { get; set; }
         public string Meow() { return "meow"; }
     }
 }

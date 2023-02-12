@@ -3,12 +3,12 @@ using cat_cafe.Dto;
 using cat_cafe.Entities;
 using cat_cafe.Mappers;
 using cat_cafe.Repositories;
+using cat_cafe.WeSo;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using FluentAssertions;
-using cat_cafe.WeSo;
 
 namespace cat_cafe.Controllers.Tests
 {
@@ -101,7 +101,7 @@ namespace cat_cafe.Controllers.Tests
             actualResult!.Value.Should().BeEquivalentTo(aliceDto);
         }
 
-        /*
+
         [TestMethod()]
         public async Task PutCatTest()
         {
@@ -111,12 +111,12 @@ namespace cat_cafe.Controllers.Tests
             // Act
             var responseType = await controller.PutCat(bob.Id, robert);
 
-           // System.InvalidOperationException: 
-           // The instance of entity type 'Cat' cannot be tracked because another instance
-           // with the same key value for {'Id'} is already being tracked. 
+            // System.InvalidOperationException: 
+            // The instance of entity type 'Cat' cannot be tracked because another instance
+            // with the same key value for {'Id'} is already being tracked. 
 
-           // ... this simple update should work out of the box, 
-           // DbContext is already 'scoped' by default instead of singleton
+            // ... this simple update should work out of the box, 
+            // DbContext is already 'scoped' by default instead of singleton
 
             // Assert
             responseType.Should().BeOfType<NoContentResult>();
@@ -125,7 +125,7 @@ namespace cat_cafe.Controllers.Tests
             var actualResult = actual.Result as OkObjectResult;
             actualResult!.Value.Should().BeEquivalentTo(robert);
         }
-        */
+
 
         [TestMethod()]
         public async Task PostCatTest()

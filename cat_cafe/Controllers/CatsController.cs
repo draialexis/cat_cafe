@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using cat_cafe.Dto;
 using cat_cafe.Entities;
 using cat_cafe.Repositories;
-using AutoMapper;
-using cat_cafe.Dto;
-using Serilog;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Logging.Abstractions;
 using cat_cafe.WeSo;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace cat_cafe.Controllers
 {
@@ -28,8 +20,8 @@ namespace cat_cafe.Controllers
         private readonly WebSocketHandler _webSocketHandler;
 
         public CatsController(
-            CatCafeContext context, 
-            IMapper mapper, 
+            CatCafeContext context,
+            IMapper mapper,
             ILogger<CatsController> logger,
             WebSocketHandler webSocketHandler
             )
@@ -65,7 +57,6 @@ namespace cat_cafe.Controllers
 
         // GET: api/v1/Cats/5
         [HttpGet("{id}")]
-        [MapToApiVersion("1.0")]
         public async Task<ActionResult<CatDto>> GetCat(long id)
         {
             var cat = await _context.Cats.FindAsync(id);
@@ -81,7 +72,6 @@ namespace cat_cafe.Controllers
         // PUT: api/v1/Cats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [MapToApiVersion("1.0")]
         public async Task<IActionResult> PutCat(long id, CatDto catDto)
         {
             if (id != catDto.Id)
@@ -89,24 +79,17 @@ namespace cat_cafe.Controllers
                 return BadRequest();
             }
 
-            Cat cat = _mapper.Map<Cat>(catDto);
-            _context.Entry(cat).State = EntityState.Modified;
+            var cat = await _context.Cats
+                .SingleOrDefaultAsync(c => c.Id == id);
 
-            try
+            if (cat == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CatExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            _mapper.Map(catDto, cat);
+
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -114,7 +97,6 @@ namespace cat_cafe.Controllers
         // POST: api/v1/Cats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [MapToApiVersion("1.0")]
         public async Task<ActionResult<CatDto>> PostCat(CatDto catDto)
         {
             Cat cat = _mapper.Map<Cat>(catDto);
@@ -128,7 +110,6 @@ namespace cat_cafe.Controllers
 
         // DELETE: api/v1/Cats/5
         [HttpDelete("{id}")]
-        [MapToApiVersion("1.0")]
         public async Task<IActionResult> DeleteCat(long id)
         {
             var cat = await _context.Cats.FindAsync(id);

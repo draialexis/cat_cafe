@@ -14,5 +14,12 @@ namespace cat_cafe.Repositories
         public DbSet<Bar> Bars { get; set; } = null!;
         public DbSet<Customer> Customers { get; set; } = null!;
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cat>()
+                .HasOne(c => c.Bar)
+                .WithMany(b => b.Cats)
+                .HasForeignKey(c => c.BarId);
+        }
     }
 }
