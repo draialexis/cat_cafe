@@ -13,49 +13,47 @@ namespace cat_cafe.Controllers.Tests
 {
 
     [TestClass()]
-    public class CustomersControllerTest
+    public class BarsControllerTest
     {
 
-        private readonly ILogger<CustomersController> logger = new NullLogger<CustomersController>();
+        private readonly ILogger<BarsController> logger = new NullLogger<BarsController>();
 
-        private readonly MapperConfiguration mapperConf = new(mapper => mapper.AddProfile(typeof(CustomerMapper)));
+        private readonly MapperConfiguration mapperConf = new(mapper => mapper.AddProfile(typeof(BarMapper)));
 
         private readonly DbContextOptions<CatCafeContext> options = new DbContextOptionsBuilder<CatCafeContext>()
                 .UseInMemoryDatabase(databaseName: "CatCafeTests")
                 .Options;
 
-        private readonly Customer alice = new()
+        private readonly Bar bleep = new()
         {
             Id = 1,
-            FullName = "Alice ",
-            Age = 5
+            Name = "bleep"
         };
 
-        private readonly Customer bob = new()
+        private readonly Bar bloop = new()
         {
             Id = 2,
-            FullName = "Bob",
-            Age = 7
+            Name= "bloop"
         };
 
 
-        private readonly CustomerDto aliceDto;
+        private readonly BarDto bleepDto;
 
-        private readonly CustomerDto bobDto;
+        private readonly BarDto bloopDto;
 
         private readonly IMapper mapper;
 
         private readonly CatCafeContext context;
 
-        private readonly CustomersController controller;
+        private readonly BarsController controller;
 
-        public CustomersControllerTest()
+        public BarsControllerTest()
         {
             mapper = mapperConf.CreateMapper();
             context = new CatCafeContext(options);
-            controller = new CustomersController(context, mapper, logger);
-            aliceDto = mapper.Map<CustomerDto>(alice);
-            bobDto = mapper.Map<CustomerDto>(bob);
+            controller = new BarsController(context, mapper, logger);
+            bleepDto = mapper.Map<BarDto>(bleep);
+            bloopDto = mapper.Map<BarDto>(bloop);
         }
 
 
@@ -63,7 +61,7 @@ namespace cat_cafe.Controllers.Tests
         public void BeforeEach()
         {
             context.Database.EnsureCreated();
-            context.Customers.AddRange(alice, bob);
+            context.Bars.AddRange(bleep, bloop);
             context.SaveChanges();
         }
 
@@ -74,76 +72,76 @@ namespace cat_cafe.Controllers.Tests
         }
 
         [TestMethod()]
-        public async Task GetCustomersTest()
+        public async Task GetBarsTest()
         {
             // control response type
-            var actual = await controller.GetCustomers();
+            var actual = await controller.GetBars();
             actual.Result.Should().BeOfType<OkObjectResult>();
 
             // control response object
             var actualResult = actual.Result as OkObjectResult;
             actualResult.Should().NotBeNull();
             actualResult!.Value.Should()
-                .BeEquivalentTo(new List<CustomerDto>() { aliceDto, bobDto }.AsEnumerable());
+                .BeEquivalentTo(new List<BarDto>() { bleepDto, bloopDto }.AsEnumerable());
         }
 
         [TestMethod()]
-        public async Task GetCustomerTest()
+        public async Task GetBarTest()
         {
             // control response type
-            var actual = await controller.GetCustomer(1);
+            var actual = await controller.GetBar(1);
             actual.Result.Should().BeOfType<OkObjectResult>();
 
             // control response object
             var actualResult = actual.Result as OkObjectResult;
             actualResult.Should().NotBeNull();
-            actualResult!.Value.Should().BeEquivalentTo(aliceDto);
+            actualResult!.Value.Should().BeEquivalentTo(bleepDto);
         }
 
 
         [TestMethod()]
-        public async Task PutCustomerTest()
+        public async Task PutBarTest()
         {
             // Arrange
-            CustomerDto jhone = new() { Id = 2, FullName = "bob" };
+            BarDto blarp = new() { Id = 2, Name = "blarp" };
 
             // Act
-            var responseType = await controller.PutCustomer(bob.Id, jhone);
+            var responseType = await controller.PutBar(bloop.Id, blarp);
 
             // Assert
             responseType.Should().BeOfType<NoContentResult>();
-            var actual = await controller.GetCustomer(bob.Id);
+            var actual = await controller.GetBar(bloop.Id);
             var actualResult = actual.Result as OkObjectResult;
-            actualResult!.Value.Should().BeEquivalentTo(jhone);
+            actualResult!.Value.Should().BeEquivalentTo(blarp);
         }
 
 
         [TestMethod()]
-        public async Task PostCustomerTest()
+        public async Task PostBarTest()
         {
             // Arrange
-            CustomerDto clyde = new() { Id = 3, FullName = "Clyde" };
+            BarDto brrrrr = new() { Id = 3, Name = "brrrrr" };
 
             // Act
-            var responseType = await controller.PostCustomer(clyde);
+            var responseType = await controller.PostBar(brrrrr);
 
             // Assert
             responseType.Result.Should().BeOfType<CreatedAtActionResult>();
-            var actual = await controller.GetCustomer(clyde.Id);
+            var actual = await controller.GetBar(brrrrr.Id);
             var actualResult = actual.Result as OkObjectResult;
-            actualResult!.Value.Should().BeEquivalentTo(clyde);
+            actualResult!.Value.Should().BeEquivalentTo(brrrrr);
         }
 
         [TestMethod()]
-        public async Task DeleteCustomerTest()
+        public async Task DeleteBarTest()
         {
             // Act
-            var responseType = await controller.DeleteCustomer(alice.Id);
+            var responseType = await controller.DeleteBar(bleep.Id);
 
             // Assert
             responseType.Should().BeOfType<NoContentResult>();
 
-            var actual = await controller.GetCustomer(alice.Id);
+            var actual = await controller.GetBar(bleep.Id);
             actual.Result.Should().BeOfType<NotFoundResult>();
         }
     }
