@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using cat_cafe.Repositories;
+using cat_cafe.WeSo;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Net.WebSockets;
-using cat_cafe.WeSo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,21 +15,31 @@ List<WebSocket> _sockets = new();
 builder.Services.AddSingleton<List<WebSocket>>(x => _sockets);
 builder.Services.AddSingleton<WebSocketHandler>();
 builder.Services.AddControllers();
-builder.Services.AddDbContext<CatCafeContext>(opt => opt.UseInMemoryDatabase("CatCafe"));
+builder.Services.AddDbContext<CatCafeContext>(opt => opt.UseSqlite("Data Source=cat_cafe.db"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews();
-builder.Services.AddApiVersioning(o => { o.ReportApiVersions = true; });
+builder.Services.AddApiVersioning(opt => { opt.ReportApiVersions = true; });
 builder.Services.AddVersionedApiExplorer(
-    options =>
+    opt =>
     {
-        options.GroupNameFormat = "'v'VVV";
-        options.SubstituteApiVersionInUrl = true;
+        opt.GroupNameFormat = "'v'VVV";
+        opt.SubstituteApiVersionInUrl = true;
     }
 );
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<CatCafeContext>();
+    context.Database.EnsureCreated();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
 
 app.UseHttpLogging();
 
@@ -47,7 +57,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseWebSockets();
-
 
 app.Use(async (context, next) =>
 {
