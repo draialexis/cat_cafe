@@ -5,8 +5,6 @@
 *.db
 *.db-shm
 *.db-wal
-coverage.xml
-
 
 ### DotnetCore ###
 # .NET Core build folders
