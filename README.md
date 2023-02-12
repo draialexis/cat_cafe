@@ -1,16 +1,33 @@
-[![Build Status](https://codefirst.iut.uca.fr/api/badges/alexis.drai/cat_cafe/status.svg)](https://codefirst.iut.uca.fr/alexis.drai/cat_cafe)
-
-[CI with SonarCloud](https://sonarcloud.io/summary/overall?id=draialexis_cat_cafe)
-
 # Cat Café
 
 ## Table of Contents
+* [Quality](#quality)
 * [REST API](#rest-api)
 * [WebSocket](#websocket)
 * [API type choices](#api-type-choices)
 * [API Gateway](#api-gateway)
 * [Versioning](#versioning)
 * [Testing the app](#testing-the-app)
+
+## Quality
+
+[![Build Status](https://codefirst.iut.uca.fr/api/badges/alexis.drai/cat_cafe/status.svg)](https://codefirst.iut.uca.fr/alexis.drai/cat_cafe)
+
+You can check out our [code analysis with SonarCloud](https://sonarcloud.io/summary/overall?id=draialexis_cat_cafe)
+
+Coverage report could not be activated on SonarCloud, but can be accessed at `./coverage-reports/index.html`. 
+
+![coverage](./docs/coverage.png)
+
+To regenerate it yourself, open a shell at the root of the project and enter 
+```shell
+dotnet test Tests\Tests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=../coverage.xml
+```
+then
+```shell
+ReportGenerator -reports:coverage.xml -targetdir:coverage-reports
+```
+then access it at `./coverage-reports/index.html`
 
 ## Global architecture
 
