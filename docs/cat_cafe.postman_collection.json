@@ -225,6 +225,145 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create bar 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"The Black Cap\",\r\n    \"catIds\" : [2, 3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5003/gateway/bars",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all bars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/bars",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all cats (v2) Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Bar 1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"The Black Cap\",\r\n    \"catIds\" : [3]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5003/gateway/bars/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"bars",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all bars Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/bars",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"bars"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read all cats (v2) Copy 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5003/gateway/cats",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"gateway",
+						"cats"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

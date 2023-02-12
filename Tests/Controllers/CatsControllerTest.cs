@@ -111,16 +111,8 @@ namespace cat_cafe.Controllers.Tests
             // Act
             var responseType = await controller.PutCat(bob.Id, robert);
 
-            // System.InvalidOperationException: 
-            // The instance of entity type 'Cat' cannot be tracked because another instance
-            // with the same key value for {'Id'} is already being tracked. 
-
-            // ... this simple update should work out of the box, 
-            // DbContext is already 'scoped' by default instead of singleton
-
             // Assert
             responseType.Should().BeOfType<NoContentResult>();
-            // responseType.Result.Should().BeOfType<NoContentResult>();
             var actual = await controller.GetCat(bob.Id);
             var actualResult = actual.Result as OkObjectResult;
             actualResult!.Value.Should().BeEquivalentTo(robert);
