@@ -6,8 +6,6 @@ using System.Net.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Logger = new LoggerConfiguration().MinimumLevel.Information().WriteTo.File("log.txt").CreateLogger();
-
 List<WebSocket> _sockets = new();
 
 // Add services to the container.
