@@ -38,9 +38,18 @@ namespace cat_cafe.Controllers
 
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCats()
         {
-            var cats = await _context.Cats.ToListAsync();
-            cats.Add(new Cat { Id = -1, Age = 42, Name = "Hi! I'm the secret V1 cat" });
-            return Ok(_mapper.Map<List<CatDto>>(cats));
+            try
+            {
+                var cats = await _context.Cats.ToListAsync();
+                cats.Add(new Cat { Id = -1, Age = 42, Name = "Hi! I'm the secret V1 cat" });
+                _logger.LogInformation("Cats retrieved successfully.");
+                return Ok(_mapper.Map<List<CatDto>>(cats));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve all cats.");
+                return BadRequest(ex);
+            }
         }
 
 
@@ -50,23 +59,41 @@ namespace cat_cafe.Controllers
 
         public async Task<ActionResult<IEnumerable<CatDto>>> GetCatsV2()
         {
-            var cats = await _context.Cats.ToListAsync();
+            try
+            {
+                var cats = await _context.Cats.ToListAsync();
 
-            return Ok(_mapper.Map<List<CatDto>>(cats));
+                _logger.LogInformation("Cats retrieved successfully.");
+                return Ok(_mapper.Map<List<CatDto>>(cats));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve all cats.");
+                return BadRequest(ex);
+            }
         }
 
         // GET: api/v1/Cats/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CatDto>> GetCat(long id)
         {
-            var cat = await _context.Cats.FindAsync(id);
-
-            if (cat == null)
+            try
             {
-                return NotFound();
-            }
+                var cat = await _context.Cats.FindAsync(id);
 
-            return Ok(_mapper.Map<CatDto>(cat));
+                if (cat == null)
+                {
+                    _logger.LogInformation("Cat not found.");
+                    return NotFound();
+                }
+                _logger.LogInformation("Cat retrieved successfully.");
+                return Ok(_mapper.Map<CatDto>(cat));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve cat.");
+                return BadRequest(ex);
+            }
         }
 
         // PUT: api/v1/Cats/5
@@ -74,24 +101,36 @@ namespace cat_cafe.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCat(long id, CatDto catDto)
         {
-            if (id != catDto.Id)
+            try
             {
-                return BadRequest();
+                if (id != catDto.Id)
+                {
+                    _logger.LogError("No such cat.");
+                    return BadRequest();
+                }
+
+                var cat = await _context.Cats
+                    .SingleOrDefaultAsync(c => c.Id == id);
+
+                if (cat == null)
+                {
+                    _logger.LogInformation("Cat not found.");
+                    return NotFound();
+                }
+
+                _mapper.Map(catDto, cat);
+
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Cat updated successfully.");
+                return NoContent();
             }
 
-            var cat = await _context.Cats
-                .SingleOrDefaultAsync(c => c.Id == id);
-
-            if (cat == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError(ex, "Failed to update cat.");
+                return BadRequest(ex);
             }
-
-            _mapper.Map(catDto, cat);
-
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         // POST: api/v1/Cats
@@ -99,29 +138,45 @@ namespace cat_cafe.Controllers
         [HttpPost]
         public async Task<ActionResult<CatDto>> PostCat(CatDto catDto)
         {
-            Cat cat = _mapper.Map<Cat>(catDto);
-            _context.Cats.Add(cat);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Cat cat = _mapper.Map<Cat>(catDto);
+                _context.Cats.Add(cat);
+                await _context.SaveChangesAsync();
 
-            await _webSocketHandler.BroadcastMessageAsync("entity-created");
+                await _webSocketHandler.BroadcastMessageAsync("entity-created");
+                _logger.LogInformation("Cat created successfully.");
+                return CreatedAtAction("GetCat", new { id = catDto.Id }, _mapper.Map<CatDto>(cat));
 
-            return CreatedAtAction("GetCat", new { id = catDto.Id }, _mapper.Map<CatDto>(cat));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create cat.");
+                return BadRequest(ex);
+            }
         }
 
         // DELETE: api/v1/Cats/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCat(long id)
         {
-            var cat = await _context.Cats.FindAsync(id);
-            if (cat == null)
+            try
             {
-                return NotFound();
+                var cat = await _context.Cats.FindAsync(id);
+                if (cat != null)
+                {
+                    _context.Cats.Remove(cat);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("Cat deleted successfully.");
+                }
+
+                return NoContent();
             }
-
-            _context.Cats.Remove(cat);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete cat.");
+                return BadRequest(ex);
+            }
         }
     }
 }

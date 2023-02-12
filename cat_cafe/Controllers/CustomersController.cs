@@ -29,35 +29,42 @@ namespace cat_cafe.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDto>>> GetCustomers()
         {
-            Log.Information(this.Request.Method + " => get All customers");
-
-            var customers = await _context.Customers.ToListAsync();
-
-            Log.Information(this.Request.Method + " => "
-                + this.Response.StatusCode.ToString() + " "
-                + customers.GetType().ToString() + " length["
-                + customers.Count + "]");
-            return Ok(_mapper.Map<List<CustomerDto>>(customers));
+            try
+            {
+                var customers = await _context.Customers.ToListAsync();
+                _logger.LogInformation("Customers retrieved successfully.");
+                return Ok(_mapper.Map<List<CustomerDto>>(customers));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve customers.");
+                return BadRequest(ex);
+            }
         }
 
         // GET: api/v1/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDto>> GetCustomer(long id)
         {
-            Log.Information(this.Request.Method + " => get by ID {@id}", id);
-            var customer = await _context.Customers.FindAsync(id);
-
-            if (customer == null)
+            try
             {
+                var customer = await _context.Customers.FindAsync(id);
 
-                Log.Information(this.Request.Method + " => " + NotFound().StatusCode.ToString());
-                return NotFound();
+                if (customer == null)
+                {
+                    _logger.LogInformation("Customer not found.");
+                    return NotFound();
+                }
+
+                _logger.LogInformation("Customer retrieved successfully.");
+                return Ok(_mapper.Map<CustomerDto>(customer));
             }
-            Log.Information(this.Request.Method + " => "
-                + this.Response.StatusCode.ToString() + " "
-                + customer.GetType().ToString() + " "
-                + JsonConvert.SerializeObject(customer).ToString());
-            return Ok(_mapper.Map<CustomerDto>(customer));
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve customer.");
+                return BadRequest(ex);
+            }
         }
 
         // PUT: api/v1/Customers/5
@@ -65,26 +72,36 @@ namespace cat_cafe.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(long id, CustomerDto customerDto)
         {
-            Log.Information(this.Request.Method + " => put by ID {@id}", id);
-            if (id != customerDto.Id)
+            try
             {
-                Log.Information(this.Request.Method + " => " + BadRequest().StatusCode.ToString() + " IDs not matching");
-                return BadRequest();
+                if (id != customerDto.Id)
+                {
+                    _logger.LogError("No such customer.");
+                    return BadRequest();
+                }
+
+                var customer = await _context.Customers
+                    .SingleOrDefaultAsync(c => c.Id == id);
+
+                if (customer == null)
+                {
+                    _logger.LogInformation("Customer not found.");
+                    return NotFound();
+                }
+
+                _mapper.Map(customerDto, customer);
+
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Customer updated successfully.");
+                return NoContent();
             }
 
-            var customer = await _context.Customers
-                .SingleOrDefaultAsync(c => c.Id == id);
-
-            if (customer == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError(ex, "Failed to update customer.");
+                return BadRequest(ex);
             }
-
-            _mapper.Map(customerDto, customer);
-
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         // POST: api/v1/Customers
@@ -92,42 +109,44 @@ namespace cat_cafe.Controllers
         [HttpPost]
         public async Task<ActionResult<CustomerDto>> PostCustomer(CustomerDto customerDto)
         {
-            Log.Information(this.Request.Method + " => post customer");
+            try
+            {
+                Customer customer = _mapper.Map<Customer>(customerDto);
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
 
-            Customer customer = _mapper.Map<Customer>(customerDto);
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+                _logger.LogInformation("Customer created successfully.");
+                return CreatedAtAction("GetCustomer", new { id = customer.Id }, _mapper.Map<CustomerDto>(customer));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create customer.");
+                return BadRequest(ex);
+            }
 
-            Log.Information(this.Request.Method + " => "
-                + 201 + " "
-                + customer.GetType().ToString() + " "
-                + JsonConvert.SerializeObject(customer).ToString());
-
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, _mapper.Map<CustomerDto>(customer));
         }
 
         // DELETE: api/v1/Customers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(long id)
         {
-            Log.Information(this.Request.Method + " => delete by ID {@id}", id);
-
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            try
             {
-                Log.Information(this.Request.Method + " => " + NotFound().StatusCode.ToString());
-                return NotFound();
+                var customer = await _context.Customers.FindAsync(id);
+                if (customer != null)
+                {
+                    _context.Customers.Remove(customer);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("Customer deleted successfully.");
+                }
+
+                return NoContent();
             }
-
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
-
-            Log.Information(this.Request.Method + " => "
-                + this.Response.StatusCode.ToString() + " "
-                + customer.GetType().ToString() + " "
-                + JsonConvert.SerializeObject(customer).ToString());
-
-            return Ok();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete customer.");
+                return BadRequest(ex);
+            }
         }
     }
 }

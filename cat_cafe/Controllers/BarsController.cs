@@ -27,27 +27,47 @@ namespace cat_cafe.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BarDto>>> GetBars()
         {
-            var bars = await _context.Bars
-               .Include(b => b.Cats)
-               .ToListAsync();
+            try
+            {
+                var bars = await _context.Bars
+                               .Include(b => b.Cats)
+                               .ToListAsync();
+                _logger.LogInformation("Bars retrieved successfully.");
+                return Ok(_mapper.Map<IEnumerable<BarDto>>(bars));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve all bars.");
+                return BadRequest(ex);
+            }
 
-            return Ok(_mapper.Map<IEnumerable<BarDto>>(bars));
         }
 
         // GET: api/v1/Bars/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BarDto>> GetBar(long id)
         {
-            var bar = await _context.Bars
-                .Include(b => b.Cats)
-                .SingleOrDefaultAsync(b => b.Id == id);
-
-            if (bar == null)
+            try
             {
-                return NotFound();
+                var bar = await _context.Bars
+                                .Include(b => b.Cats)
+                                .SingleOrDefaultAsync(b => b.Id == id);
+
+                if (bar == null)
+                {
+                    _logger.LogError("No such bar.");
+                    return NotFound();
+                }
+
+                _logger.LogInformation("Bar retrieved successfully.");
+                return Ok(_mapper.Map<BarDto>(bar));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve bar.");
+                return BadRequest(ex);
             }
 
-            return Ok(_mapper.Map<BarDto>(bar));
         }
 
         // PUT: api/v1/Bars/5
@@ -55,27 +75,39 @@ namespace cat_cafe.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBar(long id, BarDto barDto)
         {
-            if (id != barDto.Id)
+            try
             {
-                return BadRequest();
+                if (id != barDto.Id)
+                {
+                    _logger.LogError("No such bar.");
+                    return BadRequest();
+                }
+
+                var bar = await _context.Bars
+                    .Include(b => b.Cats)
+                    .SingleOrDefaultAsync(b => b.Id == id);
+
+                if (bar == null)
+                {
+                    _logger.LogInformation("Bar not found.");
+                    return NotFound();
+                }
+
+                _mapper.Map(barDto, bar);
+                bar.Cats = await _context.Cats
+                    .Where(c => barDto.CatIds.Contains(c.Id))
+                    .ToListAsync();
+
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Bar updated successfully.");
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to update bar.");
+                return BadRequest(ex);
             }
 
-            var bar = await _context.Bars
-                .Include(b => b.Cats)
-                .SingleOrDefaultAsync(b => b.Id == id);
-
-            if (bar == null)
-            {
-                return NotFound();
-            }
-
-            _mapper.Map(barDto, bar);
-            bar.Cats = await _context.Cats
-                .Where(c => barDto.CatIds.Contains(c.Id))
-                .ToListAsync();
-
-            await _context.SaveChangesAsync();
-            return NoContent();
         }
 
         // POST: api/v1/Bars
@@ -83,34 +115,50 @@ namespace cat_cafe.Controllers
         [HttpPost]
         public async Task<ActionResult<BarDto>> CreateBar(BarDto barDto)
         {
-            var bar = _mapper.Map<Bar>(barDto);
-            bar.Cats = await _context.Cats
-                .Where(c => barDto.CatIds.Contains(c.Id))
-                .ToListAsync();
+            try
+            {
+                var bar = _mapper.Map<Bar>(barDto);
+                bar.Cats = await _context.Cats
+                    .Where(c => barDto.CatIds.Contains(c.Id))
+                    .ToListAsync();
 
-            _context.Bars.Add(bar);
-            await _context.SaveChangesAsync();
+                _context.Bars.Add(bar);
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Bar created succesfully.");
+                return CreatedAtAction(nameof(GetBar), new { id = bar.Id }, _mapper.Map<BarDto>(bar));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to create bar.");
+                return BadRequest(ex);
+            }
 
-            return CreatedAtAction(nameof(GetBar), new { id = bar.Id }, _mapper.Map<BarDto>(bar));
         }
 
         // DELETE: api/v1/Bars/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBar(long id)
         {
-            var bar = await _context.Bars
-                .Include(b => b.Cats)
-                .SingleOrDefaultAsync(b => b.Id == id);
-
-            if (bar == null)
+            try
             {
-                return NotFound();
+                var bar = await _context.Bars
+                    .Include(b => b.Cats)
+                    .SingleOrDefaultAsync(b => b.Id == id);
+
+                if (bar != null)
+                {
+                    _context.Bars.Remove(bar);
+                    await _context.SaveChangesAsync();
+                    _logger.LogInformation("Bar deleted succesfully.");
+                }
+
+                return NoContent();
             }
-
-            _context.Bars.Remove(bar);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete bar.");
+                return BadRequest(ex);
+            }
         }
     }
 }

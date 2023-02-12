@@ -3,6 +3,7 @@ using cat_cafe.WeSo;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Net.WebSockets;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ List<WebSocket> _sockets = new();
 
 // Add services to the container.
 
+builder.Services.AddLogging(configure => configure.AddFile("log.txt"));
 builder.Services.AddSingleton<List<WebSocket>>(x => _sockets);
 builder.Services.AddSingleton<WebSocketHandler>();
 builder.Services.AddControllers();
@@ -86,7 +88,5 @@ app.Use(async (context, next) =>
         await next();
     }
 });
-
-Log.Information("program start");
 
 app.Run();
