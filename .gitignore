@@ -5,6 +5,7 @@
 *.db
 *.db-shm
 *.db-wal
+coverage.xml
 
 
 ### DotnetCore ###
